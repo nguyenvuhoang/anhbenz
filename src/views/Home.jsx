@@ -7,7 +7,6 @@ import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
 import Portfolio from "../components/portfolio/CreativePortfolio";
 import Service from "../components/service/ServiceAnimation";
-import Slider from "../components/slider/SliderTyper";
 
 const Home = () => {
   document.body.classList.add("dark");
@@ -26,7 +25,6 @@ const Home = () => {
         </button>
       </div>
       <Header />
-      <Slider />
 
       <div className="beny_tm_about" id="about">
         <div className="container">
