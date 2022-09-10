@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Scrollspy from "react-scrollspy";
 import { Link } from "react-router-dom";
 import {
@@ -17,52 +17,59 @@ const Header = () => {
       stage: 'current',
       link: 'home',
       menu: 'Home',
-      icon: <FiHome/>
+      icon: <FiHome />
     },
     {
       stage: '',
       link: 'about',
       menu: 'About',
-      icon: <FiUser/>
+      icon: <FiUser />
     },
     {
       stage: '',
       link: 'service',
       menu: 'Service',
-      icon: <FiSettings/>
+      icon: <FiSettings />
     },
     {
       stage: '',
       link: 'portfolio',
       menu: 'Portfolio',
-      icon: <FiGrid/>
+      icon: <FiGrid />
     },
     {
       stage: '',
       link: 'news',
       menu: 'News',
-      icon: <FiCast/>
+      icon: <FiCast />
     },
     {
       stage: '',
       link: 'contact',
       menu: 'Contact',
-      icon: <FiPhoneOutgoing/>
+      icon: <FiPhoneOutgoing />
     }
   ]
   const itemmenu = ["home", "about", "service", "portfolio", "news", "contact"]
 
   const [navbar, setNavbar] = useState(false);
 
-  const changeBackground = () => {
-    if (window.scrollY >= 80) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
 
-  window.addEventListener("scroll", changeBackground);
+  useEffect(() => {
+    const changeBackground = () => {
+      if (window.scrollY >= 80) {
+        setNavbar(true);
+      } else {
+        setNavbar(false);
+      }
+    };
+    document.addEventListener("scroll", changeBackground);
+
+    return () => {
+      document.removeEventListener('scroll', changeBackground)
+    }
+
+  }, [navbar, setNavbar]);
 
   return (
     <>
@@ -112,13 +119,13 @@ const Header = () => {
           currentClassName="current"
           offset={-65}
         >
-          {navlinks.map((value, index) =>(
+          {navlinks.map((value, index) => (
             <li key={index}>
-            <a href={`#${value.link}`}>
-              {value.icon}
-              <span>{value.menu}</span>
-            </a>
-          </li>
+              <a href={`#${value.link}`}>
+                {value.icon}
+                <span>{value.menu}</span>
+              </a>
+            </li>
           ))}
         </Scrollspy>
       </div>

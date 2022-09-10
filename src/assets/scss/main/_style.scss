@@ -5,23 +5,23 @@
 /*	Author: ib-themes
 /*	This file is made for CURRENT TEMPLATE
 
-01)	BENY BENY BASE
-02) BENY TOPBAR
-03) BENY MOBILE MENU
-04) BENY HERO
-05) BENY ABOUT
-06) BENY RESUME
-07) BENY SERVICES
-08) BENY PORTFOLIO
-09) BENY TESTIMONIALS
-10) BENY NEWS
-11) BENY CONTACT
-12) BENY COPYRIGHT
-13) BENY CURSOR
+01)	BEN BENY BASE
+02) BEN TOPBAR
+03) BEN MOBILE MENU
+04) BEN HERO
+05) BEN ABOUT
+06) BEN RESUME
+07) BEN SERVICES
+08) BEN PORTFOLIO
+09) BEN TESTIMONIALS
+10) BEN NEWS
+11) BEN CONTACT
+12) BEN COPYRIGHT
+13) BEN CURSOR
 
 
 /*--------------------------------f-------------------*/
-/*	01) BENY BASE
+/*	01) BEN BASE
 /*---------------------------------------------------*/
 
 html {
@@ -30,7 +30,7 @@ html {
   margin: 0px;
 }
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 18px;
   line-height: 30px;
   letter-spacing: 0px;
@@ -54,6 +54,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 6px;
   border: 3px solid #fff;
 }
+
 svg {
   fill: currentcolor;
   width: 15px;
@@ -141,7 +142,7 @@ h5,
 h6 {
   font-weight: 500;
   line-height: 1.3;
-  font-family: "Poppins";
+  font-family: "Quicksand";
   color: #000;
 }
 
@@ -163,6 +164,118 @@ h5 {
 h6 {
   font-size: 16px;
 }
+
+.pb-0,
+.py-0 {
+  padding-bottom: 0 !important;
+}
+.pb-1,
+.py-1 {
+  padding-bottom: 0.25rem !important;
+}
+
+.pl-1,
+.px-1 {
+  padding-left: 0.25rem !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+.pt-2,
+.py-2 {
+  padding-top: 0.5rem !important;
+}
+
+.pr-2,
+.px-2 {
+  padding-right: 0.5rem !important;
+}
+
+.pb-2,
+.py-2 {
+  padding-bottom: 0.5rem !important;
+}
+
+.pl-2,
+.px-2 {
+  padding-left: 0.5rem !important;
+}
+
+.p-3 {
+  padding: 1rem !important;
+}
+
+.pt-3,
+.py-3 {
+  padding-top: 1rem !important;
+}
+
+.pr-3,
+.px-3 {
+  padding-right: 1rem !important;
+}
+
+.pb-3,
+.py-3 {
+  padding-bottom: 1rem !important;
+}
+
+.pl-3,
+.px-3 {
+  padding-left: 1rem !important;
+}
+
+.p-4 {
+  padding: 1.5rem !important;
+}
+
+.pt-4,
+.py-4 {
+  padding-top: 1.5rem !important;
+}
+
+.pr-4,
+.px-4 {
+  padding-right: 1.5rem !important;
+}
+
+.pb-4,
+.py-4 {
+  padding-bottom: 1.5rem !important;
+}
+
+.pl-4,
+.px-4 {
+  padding-left: 1.5rem !important;
+}
+
+.p-5 {
+  padding: 3rem !important;
+}
+
+.pt-5,
+.py-5 {
+  padding-top: 3rem !important;
+}
+
+.pr-5,
+.px-5 {
+  padding-right: 3rem !important;
+}
+
+.pb-5,
+.py-5 {
+  padding-bottom: 3rem !important;
+}
+
+.pl-5,
+.px-5 {
+  padding-left: 3rem !important;
+}
+.text-blue {
+  color: #5e72e4; }
 
 .beny_tm_all_wrap {
   width: 100%;
@@ -613,7 +726,7 @@ body.dark .loader_line:after {
   color: #000;
   display: inline-block;
   padding: 4px 0px;
-  font-family: "Poppins";
+  font-family: "Quicksand";
   font-weight: 500;
 }
 
@@ -867,7 +980,8 @@ body.dark .loader_line:after {
     color: #fff;
     span {
       color: #fff;
-    }
+    };
+    font-family: "Quicksand";
   }
 }
 .ben_tm_button a .first,
@@ -1176,7 +1290,6 @@ body.dark .loader_line:after {
 }
 .progress_inner span.label {
   display: block;
-  font-family: "Poppins";
   font-size: 16px;
   font-weight: 500;
   transition: all 0.5s ease;
@@ -1194,7 +1307,7 @@ body.dark .loader_line:after {
   transform: translateY(-50%);
   transition: all 2s cubic-bezier(0.165, 0.84, 0.44, 1); /* IE 10+ */
   color: #6e6e6e;
-  font-family: "Poppins";
+  font-family: "Quicksand";
   font-size: 16px;
   font-weight: 500;
 }
@@ -1822,11 +1935,7 @@ body.dark .loader_line:after {
   transition: all 1s ease;
   transform: scale(1.4) translateZ(0);
 }
-.ben_tm_testimonials
-  .slick-slide.slick-active.slick-current
-  .item
-  .left
-  .main {
+.ben_tm_testimonials .slick-slide.slick-active.slick-current .item .left .main {
   opacity: 1;
   transition: all 1s 0.3s ease;
   transform: scale(1) translateZ(0);
@@ -1858,16 +1967,8 @@ body.dark .loader_line:after {
 .ben_tm_testimonials .item .right .details {
   transform: translateY(40px);
 }
-.ben_tm_testimonials
-  .slick-slide.slick-active.slick-current
-  .item
-  .right
-  .text,
-.ben_tm_testimonials
-  .slick-slide.slick-active.slick-current
-  .item
-  .right
-  .details {
+.ben_tm_testimonials .slick-slide.slick-active.slick-current .item .right .text,
+.ben_tm_testimonials .slick-slide.slick-active.slick-current .item .right .details {
   transform: translateY(0);
   opacity: 1;
 }
@@ -2262,7 +2363,7 @@ body.modal {
   align-items: center;
 }
 .beny_tm_modalbox_news .news_share span {
-  font-family: "Montserrat";
+  font-family: "Quicksand";
   font-weight: 600;
   font-style: italic;
   padding-right: 20px;
@@ -2422,7 +2523,6 @@ body.modal {
   background-color: transparent;
   font-size: 16px;
   color: #6e6e6e;
-  font-weight: 500;
   font-family: "Quicksand", sans-serif;
   padding-left: 0px !important;
   padding-bottom: 15px;
@@ -2531,10 +2631,8 @@ body.modal {
   height: 6px;
   z-index: 100;
   background-color: #f52225;
-  -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
-    margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
-    margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .cursor-inner.cursor-hover {
   margin-left: -40px;
@@ -3449,7 +3547,6 @@ body.intro .loader_line:after {
     font-weight: 400;
     letter-spacing: 1px;
     text-transform: uppercase;
-    cursor: pointer;
   }
   .text {
     -webkit-writing-mode: vertical-rl;
@@ -3460,6 +3557,20 @@ body.intro .loader_line:after {
     color: #fff;
   }
 }
-.item-model{
+.item-model {
   list-style: square inside;
+}
+.figcaption {
+  text-align: center;
+}
+
+.float-left {
+  float: left !important;
+}
+
+.float-right {
+  float: right !important;
+}
+.float-none {
+  float: none !important;
 }

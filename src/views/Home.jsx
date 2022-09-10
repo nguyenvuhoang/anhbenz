@@ -24,6 +24,7 @@ const Home = () => {
           </Link>
         </button>
       </div>
+      
       <Header />
 
       <div className="beny_tm_about" id="about">

@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import Routes from "./router/Routes";
-import ScrollToTop from "./components/ScrollToTop";
-import AnimatedCursor from "react-animated-cursor";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import React, { useEffect } from "react";
+import ScrollToTop from "./components/ScrollToTop";
+import Routes from "./router/Routes";
+import { Provider } from 'react-redux';
+import store, { persistor } from "./store/store";
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
 const App = () => {
   useEffect(() => {
@@ -11,16 +13,13 @@ const App = () => {
   }, []);
   return (
     <div className="beny_tm_all_wrap">
-      <AnimatedCursor
-        innerSize={8}
-        outerSize={44}
-        color="245, 34, 37"
-        outerAlpha={0.3}
-        innerScale={0.7}
-        outerScale={1.2}
-      />
-      <ScrollToTop />
-      <Routes />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ScrollToTop />
+          <Routes />
+        </PersistGate>
+      </Provider>
+
     </div>
   );
 };
