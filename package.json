@@ -1,7 +1,7 @@
 {
   "name": "anhben",
   "version": "0.0.1",
-  "homepage": "http://anhben.com",
+  "homepage": "https://anhben.com",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^3.6.2",

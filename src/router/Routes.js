@@ -4,14 +4,17 @@ import Home from "../views/Home";
 import NotFound from "../views/NotFound";
 import BlogDetail from "../views/BlogDetail";
 import Preview from "../views/Preview";
+import Blog from './../views/Blog';
 
 const Routes = () => {
   document.body.classList.add("dark");
   const routes = [
     { url: '', component: Home },
+    { url: 'blog', component: Blog },
     { url: 'page-not-found', component: NotFound },
     { url: 'preview', component: Preview },
     { url: 'blog-details/:name', component: BlogDetail }
+
   ]
   return (
     <>

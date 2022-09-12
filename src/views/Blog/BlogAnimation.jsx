@@ -10,7 +10,6 @@ Modal.setAppElement("#root");
 const BlogAnimation = (props) => {
   const { news } = props;
 
-  const newsslices = news.slice(0, 3)
 
   useEffect(() => {
     props.fetchNews();
@@ -21,7 +20,7 @@ const BlogAnimation = (props) => {
     <>
       <div className="news_list">
         <ul>
-          {newsslices.map((value, index) => (
+          {news.map((value, index) => (
             <NavLink to={`/blog-details/${value.id}`} key={index}>
               <li data-aos="fade-right" data-aos-duration="1200" >
                 <div className="list_inner">
@@ -36,7 +35,7 @@ const BlogAnimation = (props) => {
                   {/* End image */}
 
                   <div className="details">
-                    <span>
+                    <span className="text-blue">
                       {value.pubdt}
                     </span>
                     <h3 className="title">
@@ -49,6 +48,7 @@ const BlogAnimation = (props) => {
           ))}
 
           {/* End single blog */}
+          
 
         </ul>
       </div>

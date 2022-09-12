@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import About from "../components/about/AboutTyper";
 import Address from "../components/Address";
 import Blog from "../components/blog/BlogAnimation";
@@ -24,7 +24,7 @@ const Home = () => {
           </Link>
         </button>
       </div>
-      
+
       <Header />
 
       <div className="beny_tm_about" id="about">
@@ -76,7 +76,16 @@ const Home = () => {
             <h2>Recent News</h2>
           </div>
           <Blog />
+          <div className="ben_tm_button">
+            <NavLink to="/blog" className="color">
+              <span className="wrapper">
+                <span className="first">Read more</span>
+                <span className="second">Read more</span>
+              </span>
+            </NavLink>
+          </div>
         </div>
+
       </div>
       {/* /NEWS */}
 

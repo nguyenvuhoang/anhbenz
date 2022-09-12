@@ -6,13 +6,22 @@ import { Link, NavLink } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 import HeaderTwo from "../components/header/HeaderTwo";
 import { getNewsDetailsAction } from './../store/actions/NewsAction';
+// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const BlogDetail = ({ newsdetail, ...props }) => {
-  
+
   useEffect(() => {
     const postData = props.match.params.name
     props.fetchNewsDetail(postData);
   }, [])
+
+  // const initialCodeString = `
+  // hoisted() // Output: "This function has been hoisted."
+  // function hoisted() {
+  //   console.log('This function has been hoisted.')
+  // }
+  // `;
 
   return (
     <div className="home-light">
@@ -33,6 +42,7 @@ const BlogDetail = ({ newsdetail, ...props }) => {
 
       <div className="beny_tm_about" id="about">
         {newsdetail && newsdetail.content && parse(newsdetail.content)}
+        {/* <SyntaxHighlighter language="javascript" style={dracula} children={initialCodeString}></SyntaxHighlighter> */}
       </div>
 
 
