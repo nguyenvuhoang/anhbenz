@@ -6501,9 +6501,15 @@ table {
   vertical-align: top;
   border-top: 1px solid #eeeeee;
 }
-.table thead th {
+.table th {
+  color:rgb(253, 250, 255);
+  font-size: 1em !important;
+  text-align: center;
+}
+.table thead th  {
   vertical-align: bottom;
   border-bottom: 2px solid #eeeeee;
+
 }
 .table tbody + tbody {
   border-top: 2px solid #eeeeee;
