@@ -2,12 +2,14 @@
 import parse from 'html-react-parser';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Footer from "../components/footer/Footer";
 import HeaderTwo from "../components/header/HeaderTwo";
 import { getNewsDetailsAction } from './../store/actions/NewsAction';
-// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-// import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import BlogNext from './Blog/BlogNext';
+import BlogPrev from './Blog/BlogPrev';
 
 const BlogDetail = ({ newsdetail, ...props }) => {
 
@@ -17,10 +19,18 @@ const BlogDetail = ({ newsdetail, ...props }) => {
   }, [])
 
   // const initialCodeString = `
-  // hoisted() // Output: "This function has been hoisted."
-  // function hoisted() {
-  //   console.log('This function has been hoisted.')
-  // }
+  // const findNumber = (num) => (func) => {
+  //   const result = [];
+  //   for (let i = 0; i < num; i++) {
+  //     if (func(i)) {
+  //       result.push(i);
+  //     }
+  //   }
+  //   return result;
+  // };
+  // findNumber(10)((number) => number % 2 === 1);
+  // findNumber(20)((number) => number % 2 === 0);
+  // findNumber(30)((number) => number % 3 === 2);
   // `;
 
   return (
@@ -46,17 +56,14 @@ const BlogDetail = ({ newsdetail, ...props }) => {
       </div>
 
 
+
       <div className="beny_tm_copyright">
         <div className="container">
           {newsdetail && newsdetail.prevnews &&
-            <div className="col-lg-6 float-left">
-              <NavLink className="text-blue" to="">Haskell #2: Type & Typeclass</NavLink>
-            </div>
+            <BlogPrev blogid={newsdetail.prevnews} />
           }
           {newsdetail && newsdetail.nextnews &&
-            <div className="col-lg-6 float-right">
-              <NavLink className="text-blue" to="">Haskell #2: Type & Typeclass</NavLink>
-            </div>
+            <BlogNext blogid={newsdetail.nextnews} />
           }
         </div>
       </div>
