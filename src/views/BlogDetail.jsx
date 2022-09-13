@@ -12,25 +12,26 @@ import BlogNext from './Blog/BlogNext';
 import BlogPrev from './Blog/BlogPrev';
 
 const BlogDetail = ({ newsdetail, ...props }) => {
-
+  const postData = props.match.params.name
   useEffect(() => {
-    const postData = props.match.params.name
     props.fetchNewsDetail(postData);
-  }, [])
+  }, [postData])
 
   // const initialCodeString = `
-  // const findNumber = (num) => (func) => {
-  //   const result = [];
-  //   for (let i = 0; i < num; i++) {
-  //     if (func(i)) {
-  //       result.push(i);
-  //     }
+  // class Human {
+  //   constructor(name) {
+  //     this._name = name
   //   }
-  //   return result;
-  // };
-  // findNumber(10)((number) => number % 2 === 1);
-  // findNumber(20)((number) => number % 2 === 0);
-  // findNumber(30)((number) => number % 3 === 2);
+  //   get name() {
+  //     return this._name.toUpperCase()
+  //   }
+  //   set name(newName) {
+  //     this._name = newName
+  //   }
+  // }
+  // const duoc = new Human('Duoc')
+  // duoc.name = 'Alan'
+  // console.log(duoc.name) // ALAN
   // `;
 
   return (
