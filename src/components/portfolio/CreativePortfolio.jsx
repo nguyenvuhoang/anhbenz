@@ -21,7 +21,7 @@ const CreativePortfolio = () => {
                 channel="youtube"
                 autoplay
                 isOpen={isOpen}
-                videoId="1gyTUHP6ne8"
+                videoId="m1cA-SRrbpw"
                 onClose={() => setOpen(false)}
               />
               {/* End Youtube Modal video */}
@@ -30,7 +30,7 @@ const CreativePortfolio = () => {
               <li data-aos="fade-right" data-aos-duration="1200">
                 <div className="list_inner video">
                   <a
-                    href="https://www.youtube.com/watch?v=1gyTUHP6ne8"
+                    href="https://www.youtube.com/watch?v=m1cA-SRrbpw"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="title"
@@ -39,7 +39,7 @@ const CreativePortfolio = () => {
                     <span>Youtube Shoot</span>
                   </a>
                   <img
-                    src="img/portfolio/3.png"
+                    src="https://api.jits.com.vn:4001/data/news/image/AnhBen_1235x1235.png"
                     alt="Youtube Shoot"
                     onClick={() => setOpen(true)}
                   />
