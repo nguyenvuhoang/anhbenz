@@ -6820,7 +6820,6 @@ table {
   border: 0;
 }
 a {
-  color: #6418c3;
   text-decoration: none;
   background-color: transparent;
 }
@@ -6975,6 +6974,15 @@ a {
   background: -moz-linear-gradient(left, #a15cff 0%, #ce82fd 100%);
   background: -webkit-linear-gradient(left, #a15cff 0%, #ce82fd 100%);
   background: linear-gradient(to right, #a15cff 0%, #ce82fd 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a15cff', endColorstr='#ce82fd',GradientType=1 );
+}
+
+.text-post {
+  background: -moz-linear-gradient(-45deg, #23bdb8 0%, #30bdf3 100%);
+  background: -webkit-linear-gradient(-45deg, #23bdb8 0%, #30bdf3 100%);
+  background: linear-gradient(135deg, #23bdb8 0%, #30bdf3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a15cff', endColorstr='#ce82fd',GradientType=1 );
 }
 
