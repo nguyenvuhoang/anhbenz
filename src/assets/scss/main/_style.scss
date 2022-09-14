@@ -6981,6 +6981,7 @@ a {
   background: -moz-linear-gradient(-45deg, #23bdb8 0%, #30bdf3 100%);
   background: -webkit-linear-gradient(-45deg, #23bdb8 0%, #30bdf3 100%);
   background: linear-gradient(135deg, #23bdb8 0%, #30bdf3 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a15cff', endColorstr='#ce82fd',GradientType=1 );
@@ -6990,6 +6991,7 @@ a {
   background: -moz-linear-gradient(-45deg, #23bdb8 0%, #43e794 100%);
   background: -webkit-linear-gradient(-45deg, #23bdb8 0%, #43e794 100%);
   background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   &:hover {
