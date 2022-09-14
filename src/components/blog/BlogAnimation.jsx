@@ -4,13 +4,13 @@ import Modal from "react-modal";
 import { connect } from 'react-redux';
 import { getNewsAction } from "../../store/actions/NewsAction";
 import { NavLink } from 'react-router-dom';
-import CutText from './../../components/CutText';
 
 Modal.setAppElement("#root");
 
 const BlogAnimation = (props) => {
   const { news } = props;
 
+  const newsslices = news.slice(0, 3)
 
   useEffect(() => {
     props.fetchNews();
@@ -21,10 +21,9 @@ const BlogAnimation = (props) => {
     <>
       <div className="news_list">
         <ul>
-          {news.map((value, index) => (
-
-            <li data-aos="fade-right" data-aos-duration="1200" key={index}>
-              <NavLink to={`/blog-details/${value.id}`} >
+          {newsslices.map((value, index) => (
+            <NavLink to={`/blog-details/${value.id}`} key={index}>
+              <li data-aos="fade-right" data-aos-duration="1200" >
                 <div className="list_inner">
                   <div className="image">
                     <div
@@ -37,19 +36,20 @@ const BlogAnimation = (props) => {
                   {/* End image */}
 
                   <div className="details">
-                    <span className="text-blue">
+                    <span>
                       {value.pubdt}
                     </span>
                     <h3 className="title">
-                      <CutText content={value.name} start={0} end={30} />
+                      {value.name}
                     </h3>
                   </div>
                 </div>
-              </NavLink>
-            </li>
-
+              </li>
+            </NavLink>
           ))}
+
           {/* End single blog */}
+
         </ul>
       </div>
     </>

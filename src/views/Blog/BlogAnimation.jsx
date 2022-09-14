@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import { connect } from 'react-redux';
 import { getNewsAction } from "../../store/actions/NewsAction";
 import { NavLink } from 'react-router-dom';
+import CutText from './../../components/CutText';
 
 Modal.setAppElement("#root");
 
@@ -21,8 +22,9 @@ const BlogAnimation = (props) => {
       <div className="news_list">
         <ul>
           {news.map((value, index) => (
-            <NavLink to={`/blog-details/${value.id}`} key={index}>
-              <li data-aos="fade-right" data-aos-duration="1200" >
+
+            <li data-aos="fade-right" data-aos-duration="1200" key={index}>
+              <NavLink to={`/blog-details/${value.id}`} >
                 <div className="list_inner">
                   <div className="image">
                     <div
@@ -39,17 +41,15 @@ const BlogAnimation = (props) => {
                       {value.pubdt}
                     </span>
                     <h3 className="title">
-                      {value.name}
+                      <CutText content={value.name} start={0} end={30} />
                     </h3>
                   </div>
                 </div>
-              </li>
-            </NavLink>
+              </NavLink>
+            </li>
+
           ))}
-
           {/* End single blog */}
-          
-
         </ul>
       </div>
     </>
