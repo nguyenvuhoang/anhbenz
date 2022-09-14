@@ -7,6 +7,7 @@ import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
 import Portfolio from "../components/portfolio/CreativePortfolio";
 import Service from "../components/service/ServiceAnimation";
+import Course from './Course';
 
 const Home = () => {
   document.body.classList.add("dark");
@@ -55,6 +56,18 @@ const Home = () => {
         </div>
       </div>
       {/* /SERVICES */}
+
+      {/* Course */}
+      <div className="beny_tm_news" id="course">
+        <div className="container">
+          <div className="beny_tm_title_holder">
+            <span>Course</span>
+            <h2>Course</h2>
+          </div>
+          <Course />
+        </div>
+      </div>
+      {/* /Course */}
 
       {/* PORTFOLIO */}
       <div className="beny_tm_portfolio" id="portfolio">

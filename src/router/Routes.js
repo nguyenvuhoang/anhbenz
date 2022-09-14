@@ -5,6 +5,7 @@ import NotFound from "../views/NotFound";
 import BlogDetail from "../views/BlogDetail";
 import Preview from "../views/Preview";
 import Blog from './../views/Blog';
+import CommingSoon from './../views/CommingSoon';
 
 const Routes = () => {
   document.body.classList.add("dark");
@@ -13,7 +14,8 @@ const Routes = () => {
     { url: 'blog', component: Blog },
     { url: 'page-not-found', component: NotFound },
     { url: 'preview', component: Preview },
-    { url: 'blog-details/:name', component: BlogDetail }
+    { url: 'blog-details/:name', component: BlogDetail },
+    { url: 'comingsoon', component: CommingSoon }
 
   ]
   return (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Scrollspy from "react-scrollspy";
 import { Link } from "react-router-dom";
 import {
-  FiHome,
+  FiBook,
   FiUser,
   FiSettings,
   FiGrid,
@@ -14,12 +14,6 @@ const Header = () => {
 
   const navlinks = [
     {
-      stage: 'current',
-      link: 'home',
-      menu: 'Home',
-      icon: <FiHome />
-    },
-    {
       stage: '',
       link: 'about',
       menu: 'About',
@@ -30,6 +24,12 @@ const Header = () => {
       link: 'service',
       menu: 'Service',
       icon: <FiSettings />
+    },
+    {
+      stage: '',
+      link: 'course',
+      menu: 'Course',
+      icon: <FiBook />
     },
     {
       stage: '',
@@ -50,7 +50,7 @@ const Header = () => {
       icon: <FiPhoneOutgoing />
     }
   ]
-  const itemmenu = ["home", "about", "service", "portfolio", "news", "contact"]
+  const itemmenu = ["about", "service", "course", "portfolio", "news", "contact"]
 
   const [navbar, setNavbar] = useState(false);
 

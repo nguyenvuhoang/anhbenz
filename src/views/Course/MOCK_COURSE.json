@@ -1,0 +1,20 @@
+[
+    {
+        "id": "htmlcss",
+        "title": "Khoá học HTML CSS cơ bản đến nâng cao dành cho người mới bắt đầu",
+        "price": "499.000đ",
+        "image": "https://api.jits.com.vn:4001/data/news/image/css-html-1.png"
+    },
+    {
+        "id": "javascript",
+        "title": "Khoá học Javascript cơ bản đến nâng cao dành cho người mới bắt đầu",
+        "price": "799.000đ",
+        "image": "https://api.jits.com.vn:4001/data/news/image/javascript-full-course.png"
+    },
+    {
+        "id": "htmlcsspsd",
+        "title": "Khoá học ReactJS cơ bản đến nâng cao dành cho người mới bắt đầu",
+        "price": "999.000đ",
+        "image": "https://api.jits.com.vn:4001/data/news/image/react-course.jpg"
+    }
+]
