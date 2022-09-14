@@ -34,7 +34,7 @@ const Home = () => {
             <span>About Me</span>
             <h2>About Me</h2>
             <p>
-              Currently, I have worked at JUST-IN-TIME-SOLUTIONS company. A company specializing in banking solutions.
+              Currently, I have worked at <a href="https://jits.com.vn" target={"blank"} className="text-gradient">JUST-IN-TIME-SOLUTIONS</a> company. A company specializing in banking solutions.
               I have participated in many projects of the company, and have over 6 years of experience in banking solution consulting. And now I am in charge of project management for a number of major projects at the market of Cambodia, and collaborate with many clients in the field of Microfinance.
             </p>
           </div>

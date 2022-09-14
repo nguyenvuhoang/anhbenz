@@ -29,7 +29,7 @@ const AboutTyper = () => {
             <h3>BEN</h3>
             <h5>
               A Senior <span className="theme-color"> Developer </span>
-              based in <span className="theme-color">JUST IN TIME SOLUTUIONS</span>
+              based in <a href="https://jits.com.vn" target={"blank"} className="text-gradient"><span className="theme-color text-gradient">JUST IN TIME SOLUTUIONS</span></a>
             </h5>
             <p>
               I design and develop services for customers specializing banking services.
