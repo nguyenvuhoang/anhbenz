@@ -71,5 +71,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@netlify/plugin-sitemap": "^0.8.1",
+    "netlify-plugin-submit-sitemap": "^0.4.0"
   }
 }
