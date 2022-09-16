@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { connect } from 'react-redux';
 import { getNewsAction } from "../../store/actions/NewsAction";
@@ -10,10 +10,29 @@ Modal.setAppElement("#root");
 const BlogAnimation = (props) => {
   const { news } = props;
 
-  const newsslices = news.slice(0, 3)
+  const checkForDevice = () => {
+    let windowWidth = window.innerWidth;
+    if (windowWidth >= 960) {
+      return 3;
+    } else {
+      return 2;
+    }
+  };
+
+
+  const [isMobile, setIsMobile] = useState(checkForDevice());
+
+  const newsslices = news.slice(0, isMobile)
 
   useEffect(() => {
     props.fetchNews();
+    const handlePageResized = () => {
+      setIsMobile(checkForDevice);
+    };
+    window.addEventListener('resize', handlePageResized);
+    return () => {
+      window.removeEventListener('resize', handlePageResized);
+    }
   }, [])
 
 
