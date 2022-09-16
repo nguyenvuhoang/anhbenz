@@ -2132,6 +2132,9 @@ body.dark .loader_line:after {
   width: 33.3333%;
   padding-left: 30px;
   float: left;
+  @media only screen and (max-width: 575px) {
+    width: 50%;
+  }
 }
 .beny_tm_news ul li .list_inner {
   width: 100%;
@@ -7100,4 +7103,23 @@ a {
 
 .font-w900 {
   font-weight: 900;
+}
+
+
+blockquote {
+  margin: 0;
+}
+
+blockquote p {
+  padding: 15px;
+  background: #eee;
+  border-radius: 5px;
+}
+
+blockquote p::before {
+  content: '\201C';
+}
+
+blockquote p::after {
+  content: '\201D';
 }
