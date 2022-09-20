@@ -16,24 +16,10 @@ const BlogDetail = ({ newsdetail, ...props }) => {
   useEffect(() => {
     props.fetchNewsDetail(postData);
   }, [postData])
-
+  
   // const initialCodeString = `
-  // class Human {
-  //   constructor(name) {
-  //     this._name = name
-  //   }
-  //   get name() {
-  //     return this._name.toUpperCase()
-  //   }
-  //   set name(newName) {
-  //     this._name = newName
-  //   }
-  // }
-  // const duoc = new Human('Duoc')
-  // duoc.name = 'Alan'
-  // console.log(duoc.name) // ALAN
+  
   // `;
-
   return (
     <div className="home-light">
       <div
@@ -53,7 +39,7 @@ const BlogDetail = ({ newsdetail, ...props }) => {
 
       <div className="beny_tm_about" id="about">
         {newsdetail && newsdetail.content && parse(newsdetail.content)}
-        {/* <SyntaxHighlighter language="javascript" style={dracula} children={initialCodeString}></SyntaxHighlighter> */}
+        {/* <SyntaxHighlighter language="jsx" style={dracula} children={initialCodeString}></SyntaxHighlighter> */}
       </div>
 
 
@@ -61,10 +47,10 @@ const BlogDetail = ({ newsdetail, ...props }) => {
       <div className="beny_tm_copyright">
         <div className="container">
           {newsdetail && newsdetail.prevnews &&
-            <BlogPrev blogid={newsdetail.prevnews} />
+            <BlogPrev blog={newsdetail.prevnews} />
           }
           {newsdetail && newsdetail.nextnews &&
-            <BlogNext blogid={newsdetail.nextnews} />
+            <BlogNext blog={newsdetail.nextnews} />
           }
         </div>
       </div>
