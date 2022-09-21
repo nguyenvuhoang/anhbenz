@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { getNewsAction } from "../../store/actions/NewsAction";
 import { NavLink } from 'react-router-dom';
 import CutText from './../../components/CutText';
+import SearchInput, { createFilter } from 'react-search-input'
+import { useState } from "react";
 
 Modal.setAppElement("#root");
 
@@ -16,12 +18,23 @@ const BlogAnimation = (props) => {
     props.fetchNews();
   }, [])
 
+  const [search, setSearch] = useState('')
+  const searchUpdated = (term) => {
+    setSearch(term)
+  }
+  const KEYS_TO_FILTERS = ['name']
+
+  const filtered = news.filter(createFilter(search, KEYS_TO_FILTERS))
 
   return (
     <>
+      <div >
+        <SearchInput className="search-input" onChange={searchUpdated} />
+
+      </div>
       <div className="news_list">
         <ul>
-          {news.map((value, index) => (
+          {filtered.map((value, index) => (
 
             <li data-aos="fade-right" data-aos-duration="1200" key={index}>
               <NavLink to={`/blog-details/${value.id}`} >
