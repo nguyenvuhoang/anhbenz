@@ -16,6 +16,10 @@ const Footer = () => {
             </a>
             . All rights reserved.
           </p>
+          <a href="//www.dmca.com/Protection/Status.aspx?ID=d4948fff-c08c-4c00-bd10-3bf3f1a55313" title="DMCA.com Protection Status" class="dmca-badge"> 
+            <img src ="https://images.dmca.com/Badges/dmca-badge-w150-5x1-09.png?ID=d4948fff-c08c-4c00-bd10-3bf3f1a55313"  alt="DMCA.com Protection Status" />
+           </a>  
+            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
         </div>
       </div>
     </>
