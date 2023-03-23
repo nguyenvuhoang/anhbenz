@@ -10,7 +10,7 @@ import cancel from "@/assets/images/svg/cancel.svg";
 import image_4_3 from "@/assets/images/thumbs/4-3.jpg"; 
 import cbs from "@/assets/images/service/cbs.png";
 import branding from "@/assets/images/service/branding.png";
-import uiux from "@/assets/images/service/uiux.png";
+import uiux from "@/assets/images/service/UiUx.png";
 
 
 
