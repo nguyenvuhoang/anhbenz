@@ -4,6 +4,7 @@ import { NextPageWithLayout } from '@/types'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "@/assets/scss/style.scss";
+
 import { QueryClientProvider, QueryClient, Hydrate } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
