@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://anhben.com
+
+# Sitemaps
+Sitemap: https://anhben.com/sitemap.xml

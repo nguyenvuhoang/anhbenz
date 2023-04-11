@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "sitemap": "next-sitemap --next-sitemap.config.js"
   },
   "dependencies": {
     "@emailjs/browser": "^3.10.0",
@@ -18,6 +19,7 @@
     "next": "^13.2.4",
     "next-pwa": "^5.6.0",
     "next-seo": "^5.15.0",
+    "next-sitemap": "^4.0.7",
     "node-waves": "^0.7.6",
     "nprogress": "^0.2.0",
     "react": "^18.2.0",
