@@ -1,17 +1,19 @@
 import client from '@/data/client'
 import Layout from '@/layouts/_layout'
 import Seo from '@/layouts/_seo'
+import BlogNext from '@/layouts/blog/BlogNext'
+import BlogPrev from '@/layouts/blog/BlogPrev'
 import Footer from '@/layouts/footer/Footer'
 import HeaderTwo from '@/layouts/header/HeaderTwo'
-import { NewsQueryObject, NextPageWithLayout } from '@/types'
+import { News, NewsQueryObject, NextPageWithLayout } from '@/types'
+import { useQuery } from '@tanstack/react-query'
+import parse from 'html-react-parser'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
-import parse from 'html-react-parser';
-import BlogPrev from '@/layouts/blog/BlogPrev'
-import BlogNext from '@/layouts/blog/BlogNext'
 
 type PageProps = {
     blogdetail: NewsQueryObject
+    blogid: string
 }
 
 type ParsedQueryParams = {
@@ -20,16 +22,22 @@ type ParsedQueryParams = {
 
 const BlogDetail: NextPageWithLayout<InferGetStaticPropsType<
     typeof getStaticProps
->> = ({ blogdetail }) => {
+>> = ({ blogdetail, blogid }) => {
 
-    const blog = blogdetail.result.data
+    const { data } = useQuery({
+        queryKey: ['news-detail'],
+        queryFn: () => client.news.getbyid(blogid),
+        initialData: blogdetail
+    })
+
+    const blog = data.result.data
 
     return (
         <>
             <Seo
-                url={`blog-details/${blog.id}`}
-                image_url={blog.image}
-                description={blog.title}
+                url={`blog-details/${blogdetail.result.data.id}`}
+                image_url={blogdetail.result.data.image}
+                description={blogdetail.result.data.title}
             />
 
             <div className="home-light">
@@ -80,13 +88,21 @@ export default BlogDetail
 
 export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({ params }) => {
     const { blogid } = params! //* we know it's required because of getStaticPaths
-    const blogdetail = await client.news.getbyid(blogid)
-    return {
-        props: {
-            blogdetail
-        },
-        revalidate: 60, // In seconds
-    };
+    try {
+        const blogdetail = await client.news.getbyid(blogid)
+        return {
+            props: {
+                blogid,
+                blogdetail
+            },
+            revalidate: 60, // In seconds
+        };
+    } catch (error) {
+        //* if we get here, the product doesn't exist or something else went wrong
+        return {
+            notFound: true,
+        };
+    }
 };
 
 export const getStaticPaths: GetStaticPaths = async (

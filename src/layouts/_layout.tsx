@@ -15,7 +15,9 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       ])
     }, 1000)
   }, [])
-  
+  if (typeof document !== 'undefined') {
+    document.body.classList.add('dark')
+  }
   return (
     <>
       <div className="beny_tm_all_wrap">

@@ -7,6 +7,24 @@ import "@/assets/scss/style.scss";
 
 import { QueryClientProvider, QueryClient, Hydrate } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Router } from 'next/router';
+import NProgress from 'nprogress';
+
+
+
+Router.events.on('routeChangeStart', () => {
+    NProgress.start();
+});
+
+Router.events.on('routeChangeComplete', () => {
+    NProgress.done();
+});
+
+Router.events.on('routeChangeError', () => {
+    NProgress.done();
+});
+
+
 
 type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout
@@ -23,7 +41,7 @@ const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
             <Hydrate state={pageProps.dehydratedState}>
                 {getLayout(<Component {...pageProps} />)}
             </Hydrate>
-            <ReactQueryDevtools initialIsOpen={false}  />
+            <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     )
 }

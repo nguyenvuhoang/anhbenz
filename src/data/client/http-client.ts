@@ -32,10 +32,11 @@ Axios.interceptors.response.use(
             (error.response && error.response.status === 401) ||
             (error.response && error.response.status === 403) ||
             (error.response &&
-                error.response.data.message === 'PIXER_ERROR.NOT_AUTHORIZED')
+                error.response.data.errorcode === 3900)
         ) {
-            removeAuthToken();
-            Router.reload();
+            if (typeof window !== 'undefined') {
+                Router.push('/500');
+            }
         }
         return Promise.reject(error);
     }

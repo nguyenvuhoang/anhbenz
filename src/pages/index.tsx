@@ -13,9 +13,7 @@ import ServiceAnimation from './../layouts/service/ServiceAnimation'
 import BlogAnimation from '../layouts/blog/BlogAnimation';
 
 const Home: NextPageWithLayout = () => {
-  if (typeof document !== 'undefined') {
-    document.body.classList.add('dark')
-  }
+  
   return (
     <>
       <Seo
