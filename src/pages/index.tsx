@@ -12,8 +12,9 @@ import CreativePortfolio from './../layouts/portfolio/CreativePortfolio'
 import ServiceAnimation from './../layouts/service/ServiceAnimation'
 import BlogAnimation from '../layouts/blog/BlogAnimation';
 
+
 const Home: NextPageWithLayout = () => {
-  
+
   return (
     <>
       <Seo
@@ -56,7 +57,7 @@ const Home: NextPageWithLayout = () => {
                   JUST-IN-TIME-SOLUTIONS
                 </a>{' '}
                 company. A company specializing in banking solutions. I have
-                participated in many projects of the company, and have over 6
+                participated in many projects of the company, and have over 7
                 years of experience in banking solution consulting. And now I am
                 in charge of project management for a number of major projects
                 at the market of Cambodia, and collaborate with many clients in
@@ -182,4 +183,5 @@ const Home: NextPageWithLayout = () => {
 Home.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>
 }
+
 export default Home

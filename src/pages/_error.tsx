@@ -6,7 +6,7 @@ type PageProps = {
     statusCode: number
 }
 
-function Error({ statusCode } : PageProps) {
+function Error({ statusCode }: PageProps) {
     const router = useRouter();
 
     // Nếu trang lỗi là 400, chuyển hướng đến trang lỗi tùy chỉnh

@@ -1,11 +1,15 @@
 import client from '@/data/client'
-import { NewsQueryArrray } from '@/types'
+import { News, NewsQueryArrray } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
+import { useState } from 'react'
+import { ReactSearchAutocomplete } from "react-search-autocomplete"
 
-type Props = {}
+type Props = {
+    blogdatainit: News[]
+}
 
-const BlogPage = (props: Props) => {
+const BlogPage = ({ blogdatainit }: Props) => {
 
     const Blog = () => {
         const { data, isLoading, error } = useQuery<NewsQueryArrray, Error>(
@@ -19,12 +23,40 @@ const BlogPage = (props: Props) => {
         }
     }
     const { blogdata } = Blog()
+    const [searchTerm, setSearchTerm] = useState(blogdatainit);
+
+    const handleOnSearch = (string: any, results: any) => {
+        if (string === '') {
+            setSearchTerm(blogdatainit)
+        } else {
+            setSearchTerm(results)
+        }
+    };
+
 
     return (
         <>
+            <div className="beny_tm_title_holder">
+                <div className="form-head d-flex mb-4 mb-md-5 align-items-start">
+                    <div className="input-group  d-inline-flex">
+                        <div style={{ width: '600px', marginBottom: 20 }}>
+                            <ReactSearchAutocomplete
+                                items={blogdata!}
+                                onSearch={handleOnSearch}
+                                styling={{ zIndex: 5 }} // To display it on top of the search box below
+                                autoFocus
+                                fuseOptions={{ keys: ["title"] }}
+                                resultStringKeyName="title"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div className="news_list">
                 <ul>
-                    {blogdata?.map((blog) => (
+                    {searchTerm?.map((blog) => (
                         <Link href={`/blog-details/${blog.id}`} key={blog?.id}>
                             <li data-aos="fade-right" data-aos-duration="1200">
                                 <div className="list_inner">

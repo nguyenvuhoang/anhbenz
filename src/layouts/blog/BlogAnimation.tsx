@@ -22,16 +22,15 @@ const BlogAnimation = () => {
 
 
     const checkForDevice = () => {
-        let innerWidth = 0
         if (typeof document !== 'undefined') {
-            window.innerWidth;
+            let windowWidth = window.innerWidth;
+            if (windowWidth >= 960) {
+                return 3;
+            } else {
+                return 2;
+            }
         }
-        let windowWidth = innerWidth;
-        if (windowWidth >= 960) {
-            return 3;
-        } else {
-            return 2;
-        }
+
     };
 
     const [isMobile, setIsMobile] = useState(checkForDevice());
