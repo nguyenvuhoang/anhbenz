@@ -72,7 +72,7 @@ export const getStaticProps: GetStaticProps = async () => {
             props: {
                 blogdata
             },
-            revalidate: 60, // In seconds
+            revalidate: 120, // In seconds
         };
     } catch (error) {
         console.log(error)
