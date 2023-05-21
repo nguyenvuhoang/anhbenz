@@ -12,7 +12,7 @@ const Contact = () => {
   const form = useRef()
 
   const onSubmit = (data, e) => {
-    emailjs.sendForm('service_34l2y7m', 'template_q9mgwli', form.current, "35I4CT-ejIJ7-Nc5s")
+    emailjs.sendForm('service_34l2y7m', 'template_q9mgwli', form.current, "MG9SQe4JpjMnXUw9N")
       .then(function (response) {
         if (response.status === 200) {
           Swal.fire("SUCCESS!", "Your content support have been sent to us. We will check and feedback soon.", "success")
@@ -25,7 +25,7 @@ const Contact = () => {
           Swal.fire("ERROR!", "Sent mail failed. Please try again.", "error");
         }
       }, function (error) {
-        Swal.fire("ERROR!", error, "error");
+        Swal.fire("ERROR!", error.text, "error");
       });
   };
 
