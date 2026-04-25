@@ -30,14 +30,8 @@ export default function BlogClient({ blogdata }: BlogClientProps) {
 
         <HeaderTwo />
 
-        <div className="beny_tm_news" id="news">
-          <div className="container">
-            <div className="beny_tm_title_holder">
-              <span>Blogs</span>
-            </div>
-
-            <BlogPage blogdatainit={blogdata} />
-          </div>
+        <div id="news">
+          <BlogPage blogdatainit={blogdata} />
         </div>
 
         <div className="beny_tm_copyright">
