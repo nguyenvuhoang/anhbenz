@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     'Premium personal portfolio for Nguyen Vu Hoang, a senior fintech engineer building modern web apps, APIs, mobile experiences, and financial system integrations.',
   openGraph: {
+    siteName: 'Nguyen Vu Hoang Portfolio',
     title: 'Nguyen Vu Hoang (BEN) | Senior Fintech Engineer Portfolio',
     description:
       'Modern personal brand portfolio covering fintech engineering, web apps, APIs, mobile delivery, and system integration.',

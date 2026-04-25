@@ -29,6 +29,7 @@ export async function generateMetadata({
       title: blog.title,
       description: blog.title,
       openGraph: {
+        siteName: 'Nguyen Vu Hoang Portfolio',
         title: blog.title,
         description: blog.title,
         url: `/blog-details/${blog.id}`,

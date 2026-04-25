@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Quicksand } from 'next/font/google'
+import { VercelToolbar } from '@vercel/toolbar/next'
 import '@/styles/globals.css'
 
 const quicksand = Quicksand({
@@ -45,6 +46,8 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
+  const shouldInjectToolbar = process.env.NODE_ENV === 'development'
+
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
       <body
@@ -52,6 +55,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         suppressHydrationWarning
       >
         <div id="app-root">{children}</div>
+        {shouldInjectToolbar && <VercelToolbar />}
       </body>
     </html>
   )

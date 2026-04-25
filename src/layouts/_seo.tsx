@@ -10,7 +10,7 @@ const Seo = ({ title, description, url, image_url, ...props }: SeoProps) => {
       description={description}
       openGraph={{
         title: title,
-        site_name: title,
+        siteName: 'Nguyen Vu Hoang Portfolio',
         type: 'website',
         url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/${url}`,
         description: description,
