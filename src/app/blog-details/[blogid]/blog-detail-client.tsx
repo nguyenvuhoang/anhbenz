@@ -21,6 +21,14 @@ export default function BlogDetailClient({
   blogdetail,
   blogid,
 }: BlogDetailClientProps) {
+  return (
+    <Providers>
+      <BlogDetailContent blogdetail={blogdetail} blogid={blogid} />
+    </Providers>
+  )
+}
+
+function BlogDetailContent({ blogdetail, blogid }: BlogDetailClientProps) {
   const { data } = useQuery({
     queryKey: ['news-detail'],
     queryFn: () => client.news.getbyid(blogid),
@@ -30,40 +38,38 @@ export default function BlogDetailClient({
   const blog = data.result.data
 
   return (
-    <Providers>
-      <Layout>
-        <div className="home-light">
-          <div
-            className="home-fixed-wrapper"
-            data-aos="fade-left"
-            data-aos-duration="1200"
-            data-aos-delay="50"
-          >
-            <button className="home-button">
-              <Link href="/">
-                <span className="text">Home</span>
-              </Link>
-            </button>
-          </div>
-          <HeaderTwo />
-          <div className="beny_tm_about" id="about">
-            {blog && blog.content && parse(blog.content)}
-          </div>
+    <Layout>
+      <div className="home-light">
+        <div
+          className="home-fixed-wrapper"
+          data-aos="fade-left"
+          data-aos-duration="1200"
+          data-aos-delay="50"
+        >
+          <button className="home-button">
+            <Link href="/">
+              <span className="text">Home</span>
+            </Link>
+          </button>
+        </div>
+        <HeaderTwo />
+        <div className="beny_tm_about" id="about">
+          {blog && blog.content && parse(blog.content)}
+        </div>
 
-          <div className="beny_tm_copyright">
-            <div className="container">
-              {blog && blog.prevnews && <BlogPrev blog={blog.prevnews} />}
-              {blog && blog.nextnews && <BlogNext blog={blog.nextnews} />}
-            </div>
-          </div>
-
-          <div className="beny_tm_copyright">
-            <div className="container">
-              <Footer />
-            </div>
+        <div className="beny_tm_copyright">
+          <div className="container">
+            {blog && blog.prevnews && <BlogPrev blog={blog.prevnews} />}
+            {blog && blog.nextnews && <BlogNext blog={blog.nextnews} />}
           </div>
         </div>
-      </Layout>
-    </Providers>
+
+        <div className="beny_tm_copyright">
+          <div className="container">
+            <Footer />
+          </div>
+        </div>
+      </div>
+    </Layout>
   )
 }

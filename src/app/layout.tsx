@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
       <body
         className={`${quicksand.variable} bg-slate-950 font-sans antialiased`}
         suppressHydrationWarning
