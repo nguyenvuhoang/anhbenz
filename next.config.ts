@@ -1,15 +1,17 @@
-/** @type {import('next').NextConfig} */
-
+import type { NextConfig } from 'next';
+import withVercelToolbar from '@vercel/toolbar/plugins/next';
 
 const runtimeCaching = require('next-pwa/cache');
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV === 'development',
   runtimeCaching,
-})
+});
 
+const createWithVercelToolbar = withVercelToolbar;
+const withToolbar = createWithVercelToolbar();
 
-module.exports = withPWA({
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   turbopack: {},
   images: {
@@ -49,6 +51,8 @@ module.exports = withPWA({
   ...(process.env.APPLICATION_MODE === 'production' && {
     typescript: {
       ignoreBuildErrors: true,
-    }
+    },
   }),
-});
+};
+
+export default withToolbar(withPWA(nextConfig));
