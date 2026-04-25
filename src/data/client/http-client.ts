@@ -1,6 +1,5 @@
 import axios, { AxiosRequestHeaders } from 'axios';
 import { getAuthToken, removeAuthToken } from './token.utils';
-import Router from 'next/router';
 
 const Axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
@@ -35,7 +34,7 @@ Axios.interceptors.response.use(
                 error.response.data.errorcode === 3900)
         ) {
             if (typeof window !== 'undefined') {
-                Router.push('/500');
+                window.location.assign('/500');
             }
         }
         return Promise.reject(error);

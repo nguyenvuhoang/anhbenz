@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser"
 import Swal from 'sweetalert2';
@@ -9,10 +9,8 @@ const Contact = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const form = useRef()
-
   const onSubmit = (data, e) => {
-    emailjs.sendForm('service_34l2y7m', 'template_q9mgwli', form.current, "MG9SQe4JpjMnXUw9N")
+    emailjs.sendForm('service_34l2y7m', 'template_q9mgwli', e.target, "MG9SQe4JpjMnXUw9N")
       .then(function (response) {
         if (response.status === 200) {
           Swal.fire("SUCCESS!", "Your content support have been sent to us. We will check and feedback soon.", "success")
@@ -31,7 +29,7 @@ const Contact = () => {
 
   return (
     <>
-      <form className="contact_form" ref={form} onSubmit={handleSubmit(onSubmit)}>
+      <form className="contact_form" onSubmit={handleSubmit(onSubmit)}>
         <div className="first_row">
           <input
             {...register("name", { required: true })}

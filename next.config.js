@@ -11,22 +11,44 @@ const withPWA = require('next-pwa')({
 
 module.exports = withPWA({
   reactStrictMode: true,
+  turbopack: {},
   images: {
-    domains: [
-      'localhost',
-      '127.0.0.1:8000',
-      'api.jits.com.vn',
-      'www.dmca.com',
-      'images.dmca.com',
-      'img.freepik.com'
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '8000',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.jits.com.vn',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.dmca.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.dmca.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.jits.com.vn',
+        port: '4001',
+      },
     ],
   },
   ...(process.env.APPLICATION_MODE === 'production' && {
     typescript: {
       ignoreBuildErrors: true,
-    },
-    eslint: {
-      ignoreDuringBuilds: true,
-    },
+    }
   }),
 });

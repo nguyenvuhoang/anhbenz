@@ -3565,6 +3565,297 @@ body.intro .loader_line:after {
     color: #fff;
   }
 }
+
+.cosmic-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #070815;
+}
+
+.cosmic-page > *:not(.cosmic-background) {
+  position: relative;
+  z-index: 1;
+}
+
+.cosmic-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 51% 31%, rgba(244, 111, 35, 0.18), transparent 7%),
+    radial-gradient(circle at 16% 17%, rgba(231, 102, 47, 0.14), transparent 17%),
+    radial-gradient(circle at 80% 34%, rgba(70, 77, 132, 0.13), transparent 18%),
+    linear-gradient(115deg, rgba(48, 13, 17, 0.74) 0%, #080914 36%, #080817 100%);
+}
+
+.cosmic-background::before,
+.cosmic-background::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 880px;
+  height: 880px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(255, 255, 255, 0.055);
+  box-shadow:
+    0 0 0 90px rgba(255, 255, 255, 0.018),
+    0 0 0 180px rgba(255, 255, 255, 0.014),
+    0 0 0 270px rgba(255, 255, 255, 0.01);
+  opacity: 0.85;
+}
+
+.cosmic-background::after {
+  width: 520px;
+  height: 520px;
+  border-color: rgba(245, 124, 54, 0.08);
+  box-shadow:
+    0 0 0 72px rgba(245, 124, 54, 0.025),
+    0 0 0 144px rgba(255, 255, 255, 0.012);
+  animation: cosmic-drift 26s linear infinite;
+}
+
+.cosmic-nebula {
+  position: absolute;
+  inset: -12%;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(239, 125, 54, 0.2), transparent 4%),
+    radial-gradient(circle at 67% 13%, rgba(255, 213, 118, 0.14), transparent 3%),
+    radial-gradient(circle at 38% 47%, rgba(86, 158, 255, 0.12), transparent 4%),
+    radial-gradient(circle at 90% 82%, rgba(226, 94, 47, 0.12), transparent 3%);
+  filter: blur(1px);
+}
+
+.cosmic-stars {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  animation: cosmic-twinkle 3.4s ease-in-out infinite alternate;
+}
+
+.cosmic-stars--near {
+  box-shadow:
+    4vw 37vh 0 0 rgba(255, 255, 255, 0.9),
+    11vw 61vh 0 1px rgba(245, 122, 57, 0.82),
+    17vw 13vh 0 1px rgba(255, 184, 120, 0.75),
+    22vw 84vh 0 0 rgba(255, 255, 255, 0.65),
+    29vw 27vh 0 0 rgba(255, 149, 82, 0.9),
+    36vw 73vh 0 1px rgba(255, 255, 255, 0.75),
+    43vw 18vh 0 0 rgba(255, 255, 255, 0.86),
+    49vw 45vh 0 1px rgba(255, 221, 163, 0.85),
+    56vw 24vh 0 0 rgba(255, 255, 255, 0.9),
+    63vw 67vh 0 1px rgba(236, 115, 58, 0.82),
+    69vw 31vh 0 0 rgba(255, 255, 255, 0.78),
+    76vw 78vh 0 1px rgba(255, 189, 108, 0.8),
+    84vw 17vh 0 0 rgba(255, 255, 255, 0.9),
+    91vw 53vh 0 1px rgba(255, 255, 255, 0.68),
+    97vw 29vh 0 0 rgba(255, 153, 81, 0.82);
+}
+
+.cosmic-stars--far {
+  width: 1px;
+  height: 1px;
+  opacity: 0.75;
+  animation-duration: 5.2s;
+  animation-delay: -1.7s;
+  box-shadow:
+    2vw 9vh 0 0 rgba(255, 180, 118, 0.65),
+    8vw 76vh 0 0 rgba(255, 255, 255, 0.78),
+    14vw 22vh 0 0 rgba(255, 255, 255, 0.52),
+    19vw 49vh 0 0 rgba(255, 149, 75, 0.56),
+    25vw 5vh 0 0 rgba(255, 255, 255, 0.42),
+    31vw 91vh 0 0 rgba(255, 255, 255, 0.66),
+    39vw 12vh 0 0 rgba(255, 170, 98, 0.65),
+    46vw 88vh 0 0 rgba(255, 255, 255, 0.52),
+    53vw 8vh 0 0 rgba(255, 255, 255, 0.7),
+    59vw 58vh 0 0 rgba(255, 142, 72, 0.56),
+    66vw 42vh 0 0 rgba(255, 255, 255, 0.72),
+    72vw 6vh 0 0 rgba(255, 188, 113, 0.7),
+    79vw 64vh 0 0 rgba(255, 255, 255, 0.55),
+    87vw 92vh 0 0 rgba(236, 111, 61, 0.5),
+    94vw 11vh 0 0 rgba(255, 255, 255, 0.84),
+    99vw 73vh 0 0 rgba(255, 255, 255, 0.52);
+}
+
+.cosmic-orbit {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  border: 1px dashed rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: cosmic-orbit 34s linear infinite;
+}
+
+.cosmic-orbit--one {
+  width: 260px;
+  height: 260px;
+}
+
+.cosmic-orbit--two {
+  width: 560px;
+  height: 560px;
+  animation-duration: 48s;
+  animation-direction: reverse;
+}
+
+.cosmic-orbit--three {
+  width: 820px;
+  height: 820px;
+  animation-duration: 66s;
+}
+
+.cosmic-planet {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+}
+
+.cosmic-planet--sun {
+  left: 50%;
+  top: -28px;
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle at 34% 31%, #ffe9a6 0%, #ff9b2e 42%, #d74d1f 100%);
+  box-shadow: 0 0 24px rgba(255, 122, 34, 0.72), 0 0 70px rgba(255, 102, 38, 0.32);
+}
+
+.cosmic-planet--blue {
+  right: 42px;
+  bottom: 96px;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle at 34% 30%, #9ee9ff 0%, #1e7bd8 46%, #153775 100%);
+  box-shadow: 0 0 16px rgba(49, 140, 255, 0.65);
+}
+
+.cosmic-planet--ring {
+  left: 96px;
+  top: 94px;
+  width: 34px;
+  height: 34px;
+  background: radial-gradient(circle at 35% 30%, #ffe7a6 0%, #cda25b 48%, #5e4637 100%);
+  box-shadow: 0 0 18px rgba(251, 198, 105, 0.48);
+}
+
+.cosmic-planet--ring::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 12px;
+  width: 54px;
+  height: 12px;
+  border: 3px solid rgba(230, 194, 119, 0.72);
+  border-left-color: rgba(230, 194, 119, 0.25);
+  border-right-color: rgba(230, 194, 119, 0.25);
+  border-radius: 50%;
+  transform: rotate(27deg);
+}
+
+.cosmic-planet--red {
+  right: 18%;
+  top: 19%;
+  width: 13px;
+  height: 13px;
+  background: radial-gradient(circle at 34% 32%, #ffb09b 0%, #f04e3e 55%, #7d1d1b 100%);
+  box-shadow: 0 0 14px rgba(255, 82, 55, 0.78);
+  animation: cosmic-float 9s ease-in-out infinite;
+}
+
+.cosmic-planet--small {
+  left: 15%;
+  top: 51%;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle at 32% 28%, #fff0ad 0%, #d58b43 56%, #704325 100%);
+  box-shadow: 0 0 16px rgba(240, 165, 78, 0.6);
+  animation: cosmic-float 7s ease-in-out -2s infinite;
+}
+
+body.dark .cosmic-page .beny_tm_about,
+body.dark .cosmic-page .beny_tm_services,
+body.dark .cosmic-page .beny_tm_news,
+body.dark .cosmic-page .beny_tm_portfolio,
+body.dark .cosmic-page .beny_tm_contact,
+body.dark .cosmic-page .beny_tm_copyright {
+  background-color: transparent;
+}
+
+@keyframes cosmic-orbit {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes cosmic-twinkle {
+  0% {
+    opacity: 0.35;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px rgba(255, 167, 98, 0.7));
+  }
+  100% {
+    opacity: 0.62;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.35));
+  }
+}
+
+@keyframes cosmic-drift {
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+@keyframes cosmic-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(12px, -16px, 0);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .cosmic-background::before {
+    width: 520px;
+    height: 520px;
+  }
+
+  .cosmic-orbit--two {
+    width: 380px;
+    height: 380px;
+  }
+
+  .cosmic-orbit--three {
+    display: none;
+  }
+
+  .cosmic-planet--sun {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-background::after,
+  .cosmic-stars,
+  .cosmic-orbit,
+  .cosmic-planet--red,
+  .cosmic-planet--small {
+    animation: none;
+  }
+}
 .item-model {
   list-style: square inside;
 }
@@ -7262,3 +7553,557 @@ a {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
+
+/* Refined personal landing polish: preserves existing content and structure. */
+.cosmic-page {
+  color: #edf5ff;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(45, 212, 191, 0.14), transparent 30rem),
+    radial-gradient(circle at 86% 14%, rgba(56, 189, 248, 0.1), transparent 28rem),
+    linear-gradient(135deg, #040812 0%, #08111f 48%, #080d18 100%);
+}
+
+.cosmic-background {
+  opacity: 0.34;
+}
+
+.cosmic-nebula,
+.cosmic-planet,
+.cosmic-orbit {
+  opacity: 0.22;
+  filter: none;
+}
+
+.cosmic-stars {
+  opacity: 0.1;
+}
+
+.cosmic-page .container {
+  max-width: 1320px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(28px, 4vw, 72px);
+  padding-right: clamp(28px, 4vw, 72px);
+}
+
+body.dark .cosmic-page .ben_tm_topbar {
+  background: transparent;
+  border-bottom: 0;
+  pointer-events: none;
+}
+
+body.dark .cosmic-page .ben_tm_topbar.animate {
+  background: transparent;
+  box-shadow: none;
+}
+
+.cosmic-page .ben_tm_topbar .in,
+body.dark .cosmic-page .ben_tm_topbar.animate .in {
+  width: 100%;
+  margin: 0;
+  padding: 18px clamp(28px, 4vw, 72px);
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.76), rgba(5, 10, 20, 0.42) 72%, transparent);
+  box-shadow: none;
+  backdrop-filter: blur(18px);
+  pointer-events: auto;
+}
+
+.cosmic-page .ben_tm_topbar.animate .in {
+  padding: 14px clamp(28px, 4vw, 72px);
+  background: rgba(5, 10, 20, 0.82);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.22);
+}
+
+.cosmic-page .ben_tm_topbar .logo img {
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.cosmic-page .ben_tm_topbar ul li {
+  margin-right: 24px;
+}
+
+.cosmic-page .anchor_nav a,
+.cosmic-page .mobile_menu-icon a {
+  color: #cbd5e1;
+  font-weight: 600;
+  letter-spacing: 0;
+  transition: color 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.cosmic-page .anchor_nav a:hover,
+.cosmic-page .anchor_nav .current a,
+.cosmic-page .mobile_menu-icon .current a {
+  color: #7dd3fc;
+}
+
+.cosmic-page .anchor_nav li:not(:last-child) a {
+  position: relative;
+}
+
+.cosmic-page .anchor_nav li:not(:last-child) a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #67e8f9, #5eead4);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.cosmic-page .anchor_nav li:not(:last-child).current a::after,
+.cosmic-page .anchor_nav li:not(:last-child) a:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.cosmic-page .ben_tm_topbar ul li:last-child a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(203, 213, 225, 0.72);
+  border-radius: 10px;
+  padding: 0 24px;
+  color: #f8fbff;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.cosmic-page .ben_tm_topbar ul li:last-child:hover a,
+.cosmic-page .ben_tm_topbar ul li:last-child.current a {
+  border-color: rgba(125, 211, 252, 0.7);
+  color: #7dd3fc;
+  background: rgba(125, 211, 252, 0.08);
+}
+
+.cosmic-page .home-fixed-wrapper {
+  display: none;
+}
+
+.cosmic-page .beny_tm_about,
+.cosmic-page .beny_tm_services,
+.cosmic-page .beny_tm_news,
+.cosmic-page .beny_tm_portfolio,
+.cosmic-page .beny_tm_contact {
+  padding-top: clamp(72px, 9vw, 118px);
+  padding-bottom: clamp(72px, 9vw, 118px);
+}
+
+.cosmic-page .beny_tm_about {
+  padding-top: clamp(150px, 16vw, 210px);
+}
+
+.cosmic-page .beny_tm_title_holder {
+  max-width: 920px;
+  margin-bottom: clamp(34px, 5vw, 58px);
+}
+
+.cosmic-page .beny_tm_title_holder span {
+  margin-bottom: 12px;
+  color: #67e8f9;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.cosmic-page .beny_tm_title_holder h2 {
+  color: #f8fbff;
+  font-size: clamp(34px, 4.4vw, 58px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.cosmic-page .beny_tm_title_holder p {
+  max-width: 920px;
+  margin-top: 18px;
+  color: #b8c5d6;
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.8;
+}
+
+.cosmic-page .text-gradient {
+  background: linear-gradient(135deg, #7dd3fc 0%, #5eead4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.cosmic-page .beny_tm_about .about_inner {
+  align-items: stretch;
+  gap: clamp(34px, 6vw, 74px);
+  margin-bottom: clamp(72px, 8vw, 104px);
+}
+
+.cosmic-page .beny_tm_about .about_inner .left {
+  width: 46%;
+  max-width: 520px;
+  margin-right: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(10, 18, 32, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.32);
+}
+
+.cosmic-page .beny_tm_about .about_inner .left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.cosmic-page .beny_tm_about .about_inner .left .image {
+  inset: 12px;
+  border-radius: 22px;
+  background-position: center top;
+}
+
+.cosmic-page .beny_tm_about .about_inner .right {
+  width: 54%;
+  padding-left: 0;
+}
+
+.cosmic-page .beny_tm_about .short,
+.cosmic-page .beny_tm_about .extra {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 24px;
+  background: rgba(10, 18, 32, 0.7);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.24);
+}
+
+.cosmic-page .beny_tm_about .short {
+  padding: clamp(24px, 4vw, 40px);
+  margin-bottom: 18px;
+}
+
+.cosmic-page .beny_tm_about .extra {
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.cosmic-page .beny_tm_about .short h3 {
+  color: #f8fbff;
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.cosmic-page .beny_tm_about .short h5 {
+  margin-top: 14px;
+  color: #dbeafe;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.45;
+}
+
+.cosmic-page .beny_tm_about .short p,
+.cosmic-page .beny_tm_about .extra p,
+.cosmic-page .ben_tm_resume p {
+  color: #b8c5d6;
+  line-height: 1.75;
+}
+
+.cosmic-page .beny_tm_about .about_social ul {
+  gap: 10px;
+}
+
+.cosmic-page .beny_tm_about .about_social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: #dbeafe;
+  transition: transform 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.cosmic-page .beny_tm_about .about_social a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(125, 211, 252, 0.46);
+  color: #7dd3fc;
+}
+
+.cosmic-page .beny_tm_about .extra .title,
+.cosmic-page .ben_tm_resume .main_title h3 {
+  color: #f8fbff;
+  letter-spacing: 0;
+}
+
+.cosmic-page .beny_tm_about .extra .list ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+}
+
+.cosmic-page .beny_tm_about .extra .list ul li {
+  width: 100%;
+  margin: 0;
+}
+
+.cosmic-page .beny_tm_about .extra .list span {
+  color: #e2e8f0;
+  font-weight: 700;
+}
+
+.cosmic-page .ben_tm_resume .main_title {
+  margin-bottom: 24px;
+}
+
+.cosmic-page .ben_tm_resume .tab_list {
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.cosmic-page .ben_tm_resume .tab_list li,
+.cosmic-page .creative-portfolio-list li {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(10, 18, 32, 0.62);
+  color: #cbd5e1;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.cosmic-page .ben_tm_resume .tab_list li.react-tabs__tab--selected,
+.cosmic-page .creative-portfolio-list li.react-tabs__tab--selected {
+  border-color: rgba(125, 211, 252, 0.42);
+  background: rgba(14, 165, 233, 0.14);
+  color: #f8fbff;
+}
+
+.cosmic-page .resume-box-01,
+.cosmic-page .ben_tm_resume .resume_inner .skills,
+.cosmic-page .ben_tm_resume .education {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+  background: rgba(10, 18, 32, 0.72);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.24);
+}
+
+.cosmic-page .resume-box-01 h5,
+.cosmic-page .resume-box-01 h6,
+.cosmic-page .resume-box-01 h4,
+.cosmic-page .skills h4,
+.cosmic-page .edu_list h4,
+.cosmic-page .edu_list p span {
+  color: #f8fbff;
+}
+
+.cosmic-page .resume-box-01 h4 label,
+.cosmic-page .skills h4 label,
+.cosmic-page .edu_list h4 label {
+  color: #06111d;
+  background: linear-gradient(135deg, #67e8f9 0%, #5eead4 100%);
+  border-radius: 999px;
+}
+
+.cosmic-page .beny_progress .background {
+  background: rgba(148, 163, 184, 0.16);
+}
+
+.cosmic-page .beny_progress .bar_in {
+  background: linear-gradient(90deg, #67e8f9 0%, #5eead4 100%);
+}
+
+.cosmic-page .service_list .list_inner,
+.cosmic-page .news_list .list_inner,
+.cosmic-page .portfolio_list .list_inner,
+.cosmic-page .contact_inner,
+.cosmic-page .short_list ul li,
+.cosmic-page .fields input,
+.cosmic-page .fields textarea {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(10, 18, 32, 0.74);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
+}
+
+.cosmic-page .service_list ul,
+.cosmic-page .news_list ul,
+.cosmic-page .portfolio_list .gallery_zoom {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-left: 0;
+}
+
+.cosmic-page .service_list ul li,
+.cosmic-page .news_list ul li,
+.cosmic-page .portfolio_list .gallery_zoom li {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.cosmic-page .service_list .list_inner,
+.cosmic-page .news_list .list_inner,
+.cosmic-page .portfolio_list .list_inner {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.cosmic-page .service_list .list_inner:hover,
+.cosmic-page .news_list .list_inner:hover,
+.cosmic-page .portfolio_list .list_inner:hover {
+  transform: translateY(-4px);
+  border-color: rgba(125, 211, 252, 0.38);
+  background: rgba(13, 24, 42, 0.86);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.cosmic-page .service_list .service_title h3,
+.cosmic-page .news_list .details .title,
+.cosmic-page .portfolio_list .title h3,
+.cosmic-page .contact_inner .title p {
+  color: #f8fbff;
+  letter-spacing: 0;
+}
+
+.cosmic-page .service_list .service_title h3,
+.cosmic-page .news_list .details .title,
+.cosmic-page .portfolio_list .title h3 {
+  line-height: 1.25;
+}
+
+.cosmic-page .service_list .learn_more,
+.cosmic-page .portfolio_list .title span,
+.cosmic-page .news_list .details span,
+.cosmic-page .short_list a {
+  color: #8bd8ff;
+}
+
+.cosmic-page .ben_tm_button a,
+.cosmic-page .ben_tm_button button,
+.cosmic-page .home-button {
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  background: linear-gradient(135deg, #67e8f9 0%, #5eead4 100%);
+  color: #06111d;
+  box-shadow: 0 16px 36px rgba(45, 212, 191, 0.18);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.cosmic-page .ben_tm_button a:hover,
+.cosmic-page .ben_tm_button button:hover,
+.cosmic-page .home-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 46px rgba(45, 212, 191, 0.24);
+}
+
+.cosmic-page .creative-portfolio-list {
+  gap: 10px;
+}
+
+.cosmic-page .contact_inner {
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: 24px;
+  gap: clamp(26px, 4vw, 56px);
+}
+
+.cosmic-page .fields input,
+.cosmic-page .fields textarea {
+  color: #f8fbff;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(3, 8, 18, 0.52);
+}
+
+.cosmic-page .fields input:focus,
+.cosmic-page .fields textarea:focus {
+  border-color: rgba(125, 211, 252, 0.54);
+  outline: none;
+}
+
+.cosmic-page .short_list ul li {
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.cosmic-page .beny_tm_copyright {
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.cosmic-page a:focus-visible,
+.cosmic-page button:focus-visible,
+.cosmic-page input:focus-visible,
+.cosmic-page textarea:focus-visible {
+  outline: 3px solid rgba(125, 211, 252, 0.6);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1199px) {
+  .cosmic-page .container {
+    max-width: 1040px;
+  }
+
+  .cosmic-page .service_list ul,
+  .cosmic-page .news_list ul,
+  .cosmic-page .portfolio_list .gallery_zoom {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .cosmic-page .cosmic-orbit,
+  .cosmic-page .cosmic-stars,
+  .cosmic-page .cosmic-planet {
+    display: none;
+  }
+
+  .cosmic-page .mobile-menu-wrapper {
+    display: block;
+  }
+
+  .cosmic-page .mobile_menu-icon {
+    border-top: 1px solid rgba(148, 163, 184, 0.16);
+    background: rgba(5, 10, 20, 0.88);
+    backdrop-filter: blur(18px);
+  }
+
+  .cosmic-page .beny_tm_about,
+  .cosmic-page .beny_tm_services,
+  .cosmic-page .beny_tm_news,
+  .cosmic-page .beny_tm_portfolio,
+  .cosmic-page .beny_tm_contact {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .cosmic-page .beny_tm_title_holder {
+    margin-bottom: 30px;
+  }
+
+  .cosmic-page .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .cosmic-page .beny_tm_about .about_inner {
+    gap: 24px;
+  }
+
+  .cosmic-page .beny_tm_about .about_inner .left,
+  .cosmic-page .beny_tm_about .about_inner .right {
+    width: 100%;
+    max-width: none;
+  }
+
+  .cosmic-page .beny_tm_about .extra .list ul,
+  .cosmic-page .service_list ul,
+  .cosmic-page .news_list ul,
+  .cosmic-page .portfolio_list .gallery_zoom {
+    grid-template-columns: 1fr;
+  }
+
+  .cosmic-page .contact_inner {
+    padding: 22px;
+  }
+}
+

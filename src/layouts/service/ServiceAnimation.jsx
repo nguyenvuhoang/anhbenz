@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import image_1 from "@/assets/images/svg/1.svg";
 import image_2 from "@/assets/images/svg/2.svg";
@@ -12,11 +12,15 @@ import cbs from "@/assets/images/service/cbs.png";
 import branding from "@/assets/images/service/branding.png";
 import uiux from "@/assets/images/service/UiUx.png";
 
-
-
-Modal.setAppElement("#__next");
-
 const ServiceAnimation = () => {
+  useEffect(() => {
+    const appRoot = document.getElementById("app-root");
+
+    if (appRoot) {
+      Modal.setAppElement(appRoot);
+    }
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);

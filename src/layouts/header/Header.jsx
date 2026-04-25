@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Scrollspy from "react-scrollspy";
 import {
   FiBook,
   FiUser,
@@ -12,49 +11,108 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/images/logo/ben.png"; 
 
+const navlinks = [
+  {
+    stage: '',
+    link: 'about',
+    menu: 'About',
+    icon: <FiUser />
+  },
+  {
+    stage: '',
+    link: 'service',
+    menu: 'Service',
+    icon: <FiSettings />
+  },
+  {
+    stage: '',
+    link: 'course',
+    menu: 'Course',
+    icon: <FiBook />
+  },
+  {
+    stage: '',
+    link: 'portfolio',
+    menu: 'Portfolio',
+    icon: <FiGrid />
+  },
+  {
+    stage: '',
+    link: 'news',
+    menu: 'News',
+    icon: <FiCast />
+  },
+  {
+    stage: '',
+    link: 'contact',
+    menu: 'Contact',
+    icon: <FiPhoneOutgoing />
+  }
+];
+
+const itemmenu = ["about", "service", "course", "portfolio", "news", "contact"];
+
+const ScrollSpyNav = ({ children, className, currentClassName, items, offset = 0 }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const updateActiveItem = () => {
+      const threshold = window.scrollY - offset;
+      const sectionPositions = items
+        .map((item, index) => {
+          const element = document.getElementById(item);
+
+          if (!element) {
+            return null;
+          }
+
+          return {
+            index,
+            top: element.getBoundingClientRect().top + window.scrollY,
+          };
+        })
+        .filter(Boolean);
+
+      const nextActive = sectionPositions.reduce((current, section) => {
+        return section.top <= threshold ? section.index : current;
+      }, sectionPositions[0]?.index ?? 0);
+
+      setActiveIndex(nextActive);
+    };
+
+    updateActiveItem();
+    window.addEventListener("scroll", updateActiveItem, { passive: true });
+    window.addEventListener("resize", updateActiveItem);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveItem);
+      window.removeEventListener("resize", updateActiveItem);
+    };
+  }, [items, offset]);
+
+  return (
+    <ul className={className}>
+      {React.Children.map(children, (child, index) => {
+        if (!React.isValidElement(child)) {
+          return child;
+        }
+
+        const childClassName = [
+          child.props.className,
+          index === activeIndex ? currentClassName : null,
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        return React.cloneElement(child, {
+          className: childClassName,
+        });
+      })}
+    </ul>
+  );
+};
 
 const Header = () => {
-
-  const navlinks = [
-    {
-      stage: '',
-      link: 'about',
-      menu: 'About',
-      icon: <FiUser />
-    },
-    {
-      stage: '',
-      link: 'service',
-      menu: 'Service',
-      icon: <FiSettings />
-    },
-    {
-      stage: '',
-      link: 'course',
-      menu: 'Course',
-      icon: <FiBook />
-    },
-    {
-      stage: '',
-      link: 'portfolio',
-      menu: 'Portfolio',
-      icon: <FiGrid />
-    },
-    {
-      stage: '',
-      link: 'news',
-      menu: 'News',
-      icon: <FiCast />
-    },
-    {
-      stage: '',
-      link: 'contact',
-      menu: 'Contact',
-      icon: <FiPhoneOutgoing />
-    }
-  ]
-  const itemmenu = ["about", "service", "course", "portfolio", "news", "contact"]
-
   const [navbar, setNavbar] = useState(false);
 
 
@@ -72,7 +130,7 @@ const Header = () => {
       document.removeEventListener('scroll', changeBackground)
     }
 
-  }, [navbar, setNavbar]);
+  }, []);
 
   return (
     <>
@@ -86,7 +144,7 @@ const Header = () => {
               </Link>
             </div>
             <div className="menu">
-              <Scrollspy
+              <ScrollSpyNav
                 className="anchor_nav"
                 items={itemmenu}
                 currentClassName="current"
@@ -108,7 +166,7 @@ const Header = () => {
                     </span>
                   </a>
                 </li>
-              </Scrollspy>
+              </ScrollSpyNav>
             </div>
           </div>
         </div>
@@ -116,7 +174,7 @@ const Header = () => {
       {/* /TOPBAR */}
 
       <div className="mobile-menu-wrapper">
-        <Scrollspy
+        <ScrollSpyNav
           className="mobile_menu-icon"
           items={itemmenu}
           currentClassName="current"
@@ -127,10 +185,10 @@ const Header = () => {
               <a href={`#${value.link}`}>
                 {value.icon}
                 <span>{value.menu}</span>
-              </a>
-            </li>
-          ))}
-        </Scrollspy>
+            </a>
+          </li>
+        ))}
+        </ScrollSpyNav>
       </div>
       {/* End mobile-menu */}
     </>

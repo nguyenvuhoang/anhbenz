@@ -12,10 +12,15 @@ type Props = {
 const BlogPage = ({ blogdatainit }: Props) => {
 
     const Blog = () => {
-        const { data, isLoading, error } = useQuery<NewsQueryArrray, Error>(
-            ['news'],
-            () => client.news.all(),
-        )
+        const { data, isLoading, error } = useQuery<NewsQueryArrray, Error>({
+            queryKey: ['news'],
+            queryFn: () => client.news.all(),
+            initialData: {
+                result: {
+                    data: blogdatainit,
+                },
+            },
+        })
         return {
             blogdata: data?.result.data,
             isLoading,
