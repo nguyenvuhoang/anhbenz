@@ -1,43 +1,48 @@
 'use client'
 
-import Link from 'next/link'
+import { useEffect } from 'react'
 import Providers from '@/app/providers'
-import HeaderTwo from '@/layouts/header/HeaderTwo'
 import Footer from '@/layouts/footer/Footer'
-import BlogPage from '@/layouts/blog'
 import type { News } from '@/types'
+import BlogSiteHeader from './blog-site-header'
+import BlogContent from './blog-content'
 
 type BlogClientProps = {
-  blogdata: News[]
+  posts: News[]
 }
 
-export default function BlogClient({ blogdata }: BlogClientProps) {
+export default function BlogClient({ posts }: BlogClientProps) {
+  useEffect(() => {
+    const previousBodyBackground = document.body.style.backgroundColor
+    const previousHtmlBackground = document.documentElement.style.backgroundColor
+
+    document.body.style.backgroundColor = '#05070b'
+    document.documentElement.style.backgroundColor = '#05070b'
+
+    return () => {
+      document.body.style.backgroundColor = previousBodyBackground
+      document.documentElement.style.backgroundColor = previousHtmlBackground
+    }
+  }, [])
+
   return (
     <Providers>
-      <div className="home-light">
+      <div className="relative isolate min-h-screen overflow-hidden bg-[#05070b]">
+        <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,0.22),transparent_28%),radial-gradient(circle_at_78%_14%,rgba(167,139,250,0.2),transparent_30%),radial-gradient(circle_at_50%_74%,rgba(16,185,129,0.1),transparent_34%),#05070b]" />
         <div
-          className="home-fixed-wrapper"
-          data-aos="fade-left"
-          data-aos-duration="1200"
-          data-aos-delay="50"
-        >
-          <button className="home-button">
-            <Link href="/">
-              <span className="text">Home</span>
-            </Link>
-          </button>
-        </div>
-
-        <HeaderTwo />
-
-        <div id="news">
-          <BlogPage blogdatainit={blogdata} />
-        </div>
-
-        <div className="beny_tm_copyright">
-          <div className="container">
-            <Footer />
+          className="pointer-events-none fixed inset-0 -z-10 opacity-45"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(34,211,238,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(129,140,248,0.1) 1px, transparent 1px)',
+            backgroundSize: '44px 44px',
+          }}
+        />
+        <div className="relative z-10">
+          <BlogSiteHeader />
+          <div id="news">
+            <BlogContent posts={posts} />
           </div>
+          <Footer />
         </div>
       </div>
     </Providers>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import client from '@/data/client'
+import { getBlogPosts } from '@/lib/blog'
 import type { News } from '@/types'
 import BlogClient from './blog-client'
 
@@ -17,8 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
   let latestPost: News | undefined
 
   try {
-    const blog = await client.news.all()
-    latestPost = blog.result.data[0]
+    const posts = await getBlogPosts()
+    latestPost = posts[0]
   } catch {
     latestPost = undefined
   }
@@ -105,16 +105,14 @@ function createBlogListJsonLd(posts: News[]) {
 }
 
 export default async function Page() {
-  let blog
+  let posts: News[]
 
   try {
-    blog = await client.news.all()
+    posts = await getBlogPosts()
   } catch (error) {
     console.log(error)
     notFound()
   }
-
-  const posts = blog.result.data
 
   return (
     <>
@@ -124,7 +122,7 @@ export default async function Page() {
           __html: JSON.stringify(createBlogListJsonLd(posts)),
         }}
       />
-      <BlogClient blogdata={posts} />
+      <BlogClient posts={posts} />
     </>
   )
 }

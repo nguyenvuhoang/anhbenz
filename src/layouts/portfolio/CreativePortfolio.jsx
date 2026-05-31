@@ -4,10 +4,10 @@ import SimpleReactLightbox from "simple-react-lightbox";
 import { SRLWrapper } from "simple-react-lightbox";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Image from "next/image";
-import portfolio_1 from "@/assets/images/portfolio/1.png";
-import portfolio_3 from "@/assets/images/portfolio/3.png";
-import portfolio_4 from "@/assets/images/portfolio/4.png";
-import portfolio_6 from "@/assets/images/portfolio/6.png";
+import portfolio_1 from "@/publish/images/portfolio/1.png";
+import portfolio_3 from "@/publish/images/portfolio/3.png";
+import portfolio_4 from "@/publish/images/portfolio/4.png";
+import portfolio_6 from "@/publish/images/portfolio/6.png";
 
 
 const CreativePortfolio = () => {

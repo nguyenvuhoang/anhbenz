@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
-import profileImage from '@/assets/images/about/ben.png'
+import profileImage from '@/publish/images/about/ben.png'
 
 const trustDomains = ['Banking', 'Microfinance', 'Core Systems', 'OpenAPI']
 

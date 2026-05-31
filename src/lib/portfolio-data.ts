@@ -1,7 +1,7 @@
-import profileImage from '@/assets/images/about/ben.png'
-import coreBankingImage from '@/assets/images/service/cbs.png'
-import mobileBankingImage from '@/assets/images/service/mobile.png'
-import productExperienceImage from '@/assets/images/service/UiUx.png'
+import profileImage from '@/publish/images/about/ben.png'
+import coreBankingImage from '@/publish/images/service/cbs.png'
+import mobileBankingImage from '@/publish/images/service/mobile.png'
+import productExperienceImage from '@/publish/images/service/UiUx.png'
 
 export const profile = {
   name: 'Nguyen Vu Hoang',
@@ -18,7 +18,7 @@ export const profile = {
 }
 
 export const heroMetrics = [
-  { value: '9+', label: 'Years shipping software' },
+  { value: '10+', label: 'Years shipping software' },
   { value: '20+', label: 'Financial product releases' },
   { value: '4', label: 'Markets supported' },
 ]

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestHeaders } from 'axios';
-import { getAuthToken, removeAuthToken } from './token.utils';
+import { getAuthToken } from './token.utils';
 
 const Axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
@@ -10,8 +10,9 @@ const Axios = axios.create({
 });
 
 Axios.interceptors.request.use(
-    (config) => {
-        const token = getAuthToken();
+    async (config) => {
+        const token =
+            typeof window !== 'undefined' ? await getAuthToken() : null;
         config.headers = {
             ...config.headers,
             Authorization: `Bearer ${token ? token : ''}`,

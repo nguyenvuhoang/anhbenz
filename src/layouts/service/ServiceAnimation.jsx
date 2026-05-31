@@ -1,16 +1,16 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import image_1 from "@/assets/images/svg/1.svg";
-import image_2 from "@/assets/images/svg/2.svg";
-import image_3 from "@/assets/images/svg/3.svg";
-import image_4 from "@/assets/images/svg/4.svg";
+import image_1 from "@/publish/images/svg/1.svg";
+import image_2 from "@/publish/images/svg/2.svg";
+import image_3 from "@/publish/images/svg/3.svg";
+import image_4 from "@/publish/images/svg/4.svg";
 
-import cancel from "@/assets/images/svg/cancel.svg";
-import image_4_3 from "@/assets/images/thumbs/4-3.jpg"; 
-import cbs from "@/assets/images/service/cbs.png";
-import branding from "@/assets/images/service/branding.png";
-import uiux from "@/assets/images/service/UiUx.png";
+import cancel from "@/publish/images/svg/cancel.svg";
+import image_4_3 from "@/publish/images/thumbs/4-3.jpg"; 
+import cbs from "@/publish/images/service/cbs.png";
+import branding from "@/publish/images/service/branding.png";
+import uiux from "@/publish/images/service/UiUx.png";
 
 const ServiceAnimation = () => {
   useEffect(() => {

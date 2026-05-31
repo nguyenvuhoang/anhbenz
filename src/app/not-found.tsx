@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import image from '@/assets/images/notfound.png'
+import image from '@/publish/images/notfound.png'
 
 export default function NotFound() {
   return (

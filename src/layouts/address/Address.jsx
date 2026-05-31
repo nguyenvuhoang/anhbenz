@@ -1,7 +1,7 @@
 import React from "react";
-import phone from "@/assets/images/svg/phone.svg";
-import mail from "@/assets/images/svg/mail.svg";
-import map from "@/assets/images/svg/map.svg";
+import phone from "@/publish/images/svg/phone.svg";
+import mail from "@/publish/images/svg/mail.svg";
+import map from "@/publish/images/svg/map.svg";
 
 import Image from "next/image";
 

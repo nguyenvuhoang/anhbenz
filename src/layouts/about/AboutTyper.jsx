@@ -1,8 +1,8 @@
-import thump from "@/assets/images/thumbs/1-1.jpg";
+import thump from "@/publish/images/thumbs/1-1.jpg";
 import Image from "next/image";
 import Social from './../../components/Social';
 import SkillsAnimation from './../../components/skills/SkillsAnimation';
-import logo from '@/assets/images/about/ben.png'
+import logo from '@/publish/images/about/ben.png'
 
 const AboutTyper = () => {
 
