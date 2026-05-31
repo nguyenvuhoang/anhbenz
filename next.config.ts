@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import withVercelToolbar from '@vercel/toolbar/plugins/next';
+import createWithVercelToolbar from '@vercel/toolbar/plugins/next';
 
 const runtimeCaching = require('next-pwa/cache');
 const withPWA = require('next-pwa')({
@@ -8,8 +8,7 @@ const withPWA = require('next-pwa')({
   runtimeCaching,
 });
 
-const createWithVercelToolbar = withVercelToolbar;
-const withToolbar = createWithVercelToolbar();
+const withVercelToolbar = createWithVercelToolbar();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -46,6 +45,11 @@ const nextConfig: NextConfig = {
         hostname: 'api.jits.com.vn',
         port: '4001',
       },
+      {
+        protocol: 'https',
+        hostname: 'jitsapi.jits.com.vn',
+        port: '5555',
+      },
     ],
   },
   ...(process.env.APPLICATION_MODE === 'production' && {
@@ -55,4 +59,4 @@ const nextConfig: NextConfig = {
   }),
 };
 
-export default withToolbar(withPWA(nextConfig));
+export default withVercelToolbar(withPWA(nextConfig));

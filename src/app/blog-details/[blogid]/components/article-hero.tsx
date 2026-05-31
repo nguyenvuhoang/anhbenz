@@ -47,7 +47,7 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
         </span>
       </nav>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[0.98fr_0.72fr] lg:items-end">
+      <div className="mt-10 grid gap-8 lg:grid-cols-[0.98fr_0.72fr] lg:items-start">
         <div>
           <div className="inline-flex items-center gap-3 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-bold text-cyan-100">
             <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(110,231,183,0.8)]" />
@@ -74,9 +74,9 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
           </div>
         </div>
 
-        <div className="rounded-lg border border-white/10 bg-white/[0.05] p-4 shadow-2xl shadow-black/30 backdrop-blur">
-          <div className="grid grid-cols-3 divide-x divide-white/10 overflow-hidden rounded-md border border-white/10">
-            <div className="px-3 py-4">
+        <div className="rounded-lg border border-white/10 bg-white/[0.05] p-5 shadow-2xl shadow-black/30 backdrop-blur lg:mt-8">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="rounded-md border border-white/10 bg-black/15 px-4 py-4">
               <p className="text-2xl font-bold text-cyan-200">
                 {readingTime}
               </p>
@@ -84,13 +84,13 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
                 phút đọc
               </p>
             </div>
-            <div className="px-3 py-4">
+            <div className="rounded-md border border-white/10 bg-black/15 px-4 py-4">
               <p className="truncate text-lg font-bold text-white">{topic}</p>
               <p className="mt-1 text-xs font-semibold text-slate-400">
                 topic
               </p>
             </div>
-            <div className="px-3 py-4">
+            <div className="rounded-md border border-white/10 bg-black/15 px-4 py-4">
               <p className="text-lg font-bold text-emerald-200">
                 {publishedDate}
               </p>
@@ -107,17 +107,27 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
       </div>
 
       {post.image && (
-        <div className="group relative mt-12 aspect-[16/8] min-h-72 overflow-hidden rounded-lg border border-cyan-300/20 bg-slate-950 shadow-2xl shadow-cyan-950/30">
-          <Image
-            src={post.image}
-            alt={title}
-            fill
-            priority
-            sizes="(min-width: 1280px) 1180px, 100vw"
-            className="object-cover opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-[#05070b] via-transparent to-black/20" />
-          <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-cyan-300 to-transparent opacity-80" />
+        <div
+          className="rounded-lg border border-white/10 bg-[#05070b] p-3 shadow-2xl shadow-cyan-950/20 sm:p-4"
+          style={{ marginTop: '72px' }}
+        >
+          <div className="mb-7 flex items-center gap-4">
+            <div className="h-px flex-1 bg-linear-to-r from-transparent via-cyan-300/35 to-cyan-300/10" />
+            <div className="h-2 w-2 rounded-full bg-cyan-200/70 shadow-[0_0_16px_rgba(103,232,249,0.65)]" />
+            <div className="h-px flex-1 bg-linear-to-l from-transparent via-cyan-300/35 to-cyan-300/10" />
+          </div>
+          <div className="group relative aspect-[16/8] min-h-72 overflow-hidden rounded-md border border-cyan-300/20 bg-slate-950 shadow-2xl shadow-cyan-950/30">
+            <Image
+              src={post.image}
+              alt={title}
+              fill
+              priority
+              sizes="(min-width: 1280px) 1180px, 100vw"
+              className="object-cover opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-[#05070b] via-transparent to-black/20" />
+            <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-cyan-300 to-transparent opacity-80" />
+          </div>
         </div>
       )}
     </header>

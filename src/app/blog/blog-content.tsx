@@ -29,10 +29,8 @@ export default function BlogContent({ posts }: BlogContentProps) {
     paginatedPosts,
     query,
     resultCount,
-    selectedTopic,
     setCurrentPage,
     setQuery,
-    setSelectedTopic,
     topics,
     totalPages,
     totalCount,
@@ -61,31 +59,7 @@ export default function BlogContent({ posts }: BlogContentProps) {
           topicCount={topics.length - 1}
           totalCount={totalCount}
         />
-
-        <div
-          id="topics"
-          className="mt-14 flex scroll-mt-28 flex-wrap items-center gap-3"
-        >
-          {topics.map((topic) => {
-            const isActive = topic.name === selectedTopic
-
-            return (
-              <button
-                key={topic.name}
-                type="button"
-                onClick={() => setSelectedTopic(topic.name)}
-                className={`rounded-full border px-4 py-2 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
-                  isActive
-                    ? 'border-cyan-200 bg-linear-to-r from-cyan-200 to-sky-300 text-slate-950 shadow-lg shadow-cyan-950/25'
-                    : 'border-white/10 bg-white/[0.04] text-slate-300 hover:border-cyan-300/70 hover:text-white'
-                }`}
-              >
-                {topic.name}{' '}
-                <span className="text-current/65">{topic.count}</span>
-              </button>
-            )
-          })}
-        </div>
+ 
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-y border-white/10 py-5 text-sm text-slate-400">
           <span>
@@ -102,22 +76,8 @@ export default function BlogContent({ posts }: BlogContentProps) {
           )}
         </div>
 
-        <section id="articles" className="scroll-mt-28 pt-24 sm:pt-28">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-4 border-t border-white/10 pt-8">
-            <div>
-              <p className="text-sm font-bold uppercase text-cyan-200">
-                Article signals
-              </p>
-              <h2 className="mt-2 text-2xl font-black text-white sm:text-3xl">
-                Featured intelligence
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-7 text-slate-400">
-              Nội dung nổi bật và danh sách bài viết được tách thành từng vùng
-              rõ ràng để dễ quét hơn.
-            </p>
-          </div>
-
+        <section id="articles" className="scroll-mt-28 pt-8 sm:pt-10">
+         
           {featuredPost ? (
             <BlogCard post={featuredPost} priority variant="featured" />
           ) : (

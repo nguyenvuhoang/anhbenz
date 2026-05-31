@@ -124,14 +124,9 @@ export function useBlogPosts(initialPosts: News[]) {
     query,
     regularPosts,
     resultCount: filteredPosts.length,
-    selectedTopic,
     setCurrentPage,
     setQuery: (value: string) => {
       setQuery(value)
-      setCurrentPage(1)
-    },
-    setSelectedTopic: (value: string) => {
-      setSelectedTopic(value)
       setCurrentPage(1)
     },
     topics,

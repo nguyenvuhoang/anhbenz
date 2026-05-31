@@ -19,18 +19,34 @@ module.exports = {
     }
 
     try {
-      const response = await fetch(new URL('/data/allnews', apiBase))
+      const response = await fetch(new URL('/api/v1/gateway', apiBase), {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          app: 'BO',
+          lang: 'vi',
+        },
+        body: JSON.stringify({
+          workflowid: 'WF_BO_SIMPLE_SEARCH_ARTICLE',
+          fields: {
+            search_text: '',
+            page_index: 0,
+            page_size: 100,
+          },
+        }),
+      })
 
       if (!response.ok) {
         return []
       }
 
       const feed = await response.json()
-      const posts = feed?.result?.data || []
+      const posts = feed?.data?.items || []
 
       return posts.map((post) => ({
-        loc: `/blog-details/${post.id}`,
-        lastmod: post.pubdt || post.createdt,
+        loc: `/blog-details/${post.article_id}`,
+        lastmod: post.publish_date || post.created_date,
         changefreq: 'weekly',
         priority: 0.7,
       }))
