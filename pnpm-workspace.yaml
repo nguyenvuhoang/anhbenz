@@ -1,5 +1,0 @@
-allowBuilds:
-  '@parcel/watcher': false
-  core-js: false
-  sharp: false
-  unrs-resolver: false
