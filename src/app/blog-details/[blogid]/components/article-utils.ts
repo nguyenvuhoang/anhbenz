@@ -75,7 +75,9 @@ export function extractArticleBody(html: string) {
 }
 
 export function extractHeadings(html: string): TocItem[] {
-  const headings = [...html.matchAll(/<h([2-3])([^>]*)>([\s\S]*?)<\/h\1>/gi)]
+  const headings = Array.from(
+    html.matchAll(/<h([2-3])([^>]*)>([\s\S]*?)<\/h\1>/gi)
+  )
   const usedIds = new Map<string, number>()
 
   return headings
@@ -114,5 +116,5 @@ export function applyHeadingIds(html: string, toc: TocItem[]) {
 
 export function getArticleTags(post: News) {
   const tags = [getArticleTopic(post), 'Next.js', 'Fintech', 'Performance']
-  return [...new Set(tags.filter(Boolean))].slice(0, 5)
+  return Array.from(new Set(tags.filter(Boolean))).slice(0, 5)
 }
