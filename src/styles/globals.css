@@ -253,6 +253,40 @@ button {
   text-shadow: 0 0 18px rgba(103, 232, 249, 0.8);
 }
 
+@keyframes birthday-modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes birthday-backdrop-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes birthday-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes birthday-confetti-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(12deg); opacity: 0.6; }
+  50% { transform: translate3d(8px, 16px, 0) rotate(125deg); opacity: 1; }
+}
+
+.birthday-backdrop { animation: birthday-backdrop-enter 240ms ease-out both; }
+.birthday-modal { animation: birthday-modal-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.birthday-float { animation: birthday-float 4.5s ease-in-out infinite; }
+.birthday-float-slow { animation: birthday-float 5.5s ease-in-out 600ms infinite; }
+.birthday-confetti { will-change: transform, opacity; animation: birthday-confetti-drift 5.5s ease-in-out infinite; }
+.birthday-confetti-two { animation-delay: 900ms; animation-duration: 6.5s; }
+.birthday-confetti-three { animation-delay: 1.5s; animation-duration: 7.2s; }
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

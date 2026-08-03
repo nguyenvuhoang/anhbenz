@@ -6,6 +6,7 @@ import { ProjectsSection } from './projects-section'
 import { ServicesSection } from './services-section'
 import { SiteHeader } from './site-header'
 import { SkillsSection } from './skills-section'
+import { BirthdayModal } from '@/components/home/BirthdayModal'
 
 export function PortfolioPage() {
   return (
@@ -18,6 +19,7 @@ export function PortfolioPage() {
       <ExperienceSection />
       <ServicesSection />
       <ContactSection />
+      <BirthdayModal />
     </main>
   )
 }
