@@ -35,7 +35,7 @@ function CakeIllustration() {
     <div className="relative mx-auto h-40 w-48 sm:h-48 sm:w-56" aria-hidden="true">
       <div className="absolute left-1/2 top-1 h-7 w-3 -translate-x-1/2 rounded-full bg-[#ffd95d] shadow-[0_0_18px_5px_rgba(255,210,85,0.5)]" />
       <div className="absolute left-1/2 top-6 h-10 w-2 -translate-x-1/2 rounded-t-full bg-gradient-to-r from-[#e4a72b] via-[#fff0a6] to-[#d68e19]" />
-      <div className="absolute left-1/2 top-15 h-1.5 w-4 -translate-x-1/2 rounded-full bg-[#fff5b8]" />
+      <div className="absolute left-1/2 top-[3.75rem] h-1.5 w-4 -translate-x-1/2 rounded-full bg-[#fff5b8]" />
       <div className="absolute bottom-4 left-1/2 h-16 w-40 -translate-x-1/2 rounded-b-[1.6rem] rounded-t-xl border border-[#ffe28c]/60 bg-[repeating-linear-gradient(135deg,#d99b2d_0_10px,#f5ca5c_10px_20px)] shadow-[0_18px_28px_rgba(0,0,0,0.28)]" />
       <div className="absolute bottom-[4.55rem] left-1/2 h-8 w-40 -translate-x-1/2 rounded-full bg-[#fff1b2] shadow-[inset_0_-8px_12px_rgba(207,142,37,0.35)]" />
       <div className="absolute bottom-3 left-1/2 h-4 w-44 -translate-x-1/2 rounded-[50%] bg-[#8b4b17]/80 blur-[1px]" />
@@ -66,6 +66,7 @@ function Gift() {
 
 export function BirthdayModal() {
   const [isOpen, setIsOpen] = useState(false)
+  const dialogRef = useRef<HTMLElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const lastActiveElementRef = useRef<HTMLElement | null>(null)
 
@@ -94,7 +95,26 @@ export function BirthdayModal() {
     closeButtonRef.current?.focus()
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeModal()
+      if (event.key === 'Escape') {
+        closeModal()
+        return
+      }
+      if (event.key !== 'Tab') return
+
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      )
+      if (!focusable?.length) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
     window.addEventListener('keydown', onKeyDown)
 
@@ -121,6 +141,7 @@ export function BirthdayModal() {
       }}
     >
       <section
+        ref={dialogRef}
         aria-label="Lời chúc mừng sinh nhật Anh Ben"
         aria-modal="true"
         role="dialog"
