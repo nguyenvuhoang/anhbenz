@@ -8,8 +8,15 @@ export type TocItem = {
 
 const WORDS_PER_MINUTE = 220
 
-export function stripHtml(value: string) {
-  return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+export function stripHtml(value?: string | null) {
+  if (!value) {
+    return ''
+  }
+
+  return value
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 export function formatArticleDate(value?: string) {

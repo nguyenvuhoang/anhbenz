@@ -14,12 +14,17 @@ type RelatedArticlesProps = {
 }
 
 export default function RelatedArticles({ posts }: RelatedArticlesProps) {
-  const relatedPosts = posts.filter(Boolean).slice(0, 3)
+  const relatedPosts = Array.from(
+    new Map(
+      posts
+        .filter((post): post is News => post != null && post.id != null)
+        .map((post) => [String(post.id), post])
+    ).values()
+  ).slice(0, 3)
 
   if (!relatedPosts.length) {
     return null
   }
-
   return (
     <section className="mt-16">
       <div className="mb-6 flex items-end justify-between gap-4">
@@ -45,7 +50,7 @@ export default function RelatedArticles({ posts }: RelatedArticlesProps) {
 
           return (
             <Link
-              key={post.id}
+              key={String(post.id)}
               href={`/blog-details/${post.id}`}
               className="group overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] shadow-xl shadow-black/20 transition hover:-translate-y-1 hover:border-cyan-300/50"
             >
