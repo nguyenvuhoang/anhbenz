@@ -88,6 +88,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: PageProps) {
   const { blogid } = await params
+
   let blogdetail
 
   try {
@@ -96,5 +97,16 @@ export default async function Page({ params }: PageProps) {
     notFound()
   }
 
-  return <BlogDetailClient blogdetail={blogdetail} blogid={blogid} />
+  const blog = blogdetail?.result?.data
+
+  if (!blog) {
+    notFound()
+  }
+
+  return (
+    <BlogDetailClient
+      blogdetail={blogdetail}
+      blogid={blogid}
+    />
+  )
 }
