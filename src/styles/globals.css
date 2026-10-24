@@ -2,45 +2,66 @@
 
 @theme {
   --font-sans: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
+
+  /* Blog editorial palette */
+  --color-blog-bg: #09090b;
+  --color-blog-surface: #111318;
+  --color-blog-elevated: #171a21;
+  --color-blog-border: #272a32;
+  --color-blog-border-strong: #3a3e48;
+  --color-blog-text: #f4f4f5;
+  --color-blog-muted: #a1a1aa;
+  --color-blog-accent: #67e8f9;
 }
 
+/* Kept unlayered on purpose: it must beat the `font-sans` utility on
+   <body>, because --font-sans resolves at :root where --font-quicksand
+   (set by the next/font class on <body>) is not defined. */
 html,
 body {
-  padding: 0;
-  margin: 0;
-  min-height: 100%;
   font-family: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* Base rules live in the base layer so Tailwind utilities can override
+   them (unlayered rules always beat layered utilities in Tailwind v4). */
+@layer base {
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    min-height: 100%;
+  }
 
-* {
-  box-sizing: border-box;
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
+  * {
+    box-sizing: border-box;
+  }
 
-h1,
-h2,
-h3,
-p,
-ul {
-  margin: 0;
-}
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 
-ul {
-  padding: 0;
-  list-style: none;
-}
+  h1,
+  h2,
+  h3,
+  p,
+  ul {
+    margin: 0;
+  }
 
-button {
-  font: inherit;
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  button {
+    font: inherit;
+  }
 }
 
 ::selection {
@@ -296,157 +317,4 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
-}
-
-.article-prose {
-  color: rgb(203 213 225);
-}
-
-.article-prose :where(.container, .beny_tm_modalbox_news, .box_inner, .scrollable, .main_content, .descriptions, .content, .article) {
-  width: 100%;
-  max-width: none;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-}
-
-.article-prose :where(h2, h3, h4) {
-  color: rgb(248 250 252);
-  font-weight: 800;
-  scroll-margin-top: 7rem;
-}
-
-.article-prose h2 {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: clamp(1.75rem, 4vw, 2.35rem);
-  line-height: 1.2;
-}
-
-.article-prose h3 {
-  margin-top: 2.25rem;
-  font-size: clamp(1.35rem, 3vw, 1.7rem);
-  line-height: 1.3;
-}
-
-.article-prose h4 {
-  margin-top: 1.75rem;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  color: rgb(165 243 252);
-}
-
-.article-prose :where(p, li) {
-  font-size: 1rem;
-  line-height: 1.9;
-}
-
-.article-prose p {
-  margin-top: 1.25rem;
-}
-
-.article-prose :where(ul, ol) {
-  margin-top: 1.25rem;
-  margin-left: 0;
-  padding-left: 1.25rem;
-}
-
-.article-prose li {
-  margin-top: 0.65rem;
-  padding-left: 0.35rem;
-}
-
-.article-prose ul > li::marker {
-  color: rgb(103 232 249);
-}
-
-.article-prose ol > li::marker {
-  color: rgb(110 231 183);
-  font-weight: 800;
-}
-
-.article-prose a {
-  color: rgb(125 211 252);
-  text-decoration: underline;
-  text-decoration-color: rgba(34, 211, 238, 0.45);
-  text-underline-offset: 0.22em;
-  transition: color 180ms ease, text-decoration-color 180ms ease;
-}
-
-.article-prose a:hover {
-  color: rgb(196 181 253);
-  text-decoration-color: rgba(196, 181, 253, 0.85);
-}
-
-.article-prose :where(strong, b) {
-  color: rgb(255 255 255);
-  font-weight: 800;
-}
-
-.article-prose blockquote {
-  margin-top: 2rem;
-  border-left: 3px solid rgb(103 232 249);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.25rem 1.5rem;
-  color: rgb(226 232 240);
-  box-shadow: 0 24px 80px rgba(8, 47, 73, 0.22);
-}
-
-.article-prose :where(pre, code) {
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(2, 6, 23, 0.72);
-  color: rgb(165 243 252);
-}
-
-.article-prose code {
-  padding: 0.18rem 0.38rem;
-  font-size: 0.9em;
-}
-
-.article-prose pre {
-  margin-top: 1.5rem;
-  overflow-x: auto;
-  padding: 1rem;
-}
-
-.article-prose pre code {
-  border: 0;
-  background: transparent;
-  padding: 0;
-}
-
-.article-prose img {
-  width: 100%;
-  height: auto;
-  margin-top: 2rem;
-  border: 1px solid rgba(103, 232, 249, 0.22);
-  border-radius: 8px;
-  background: rgba(15, 23, 42, 0.75);
-  box-shadow: 0 28px 90px rgba(8, 47, 73, 0.28);
-}
-
-.article-prose :where(table) {
-  display: block;
-  width: 100%;
-  margin-top: 2rem;
-  overflow-x: auto;
-  border-collapse: collapse;
-}
-
-.article-prose :where(th, td) {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.85rem 1rem;
-  text-align: left;
-}
-
-.article-prose th {
-  color: rgb(255 255 255);
-  background: rgba(34, 211, 238, 0.1);
-}
-
-.article-prose :where(.goto-wrapper, #ftwp-container-outer, .news_share, .details) {
-  display: none !important;
 }

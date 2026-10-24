@@ -2,104 +2,100 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
-import Providers from '@/app/providers'
-import client from '@/data/client'
-import Layout from '@/layouts/_layout'
-import Footer from '@/layouts/footer/Footer'
-import HeaderTwo from '@/layouts/header/HeaderTwo'
-import type { News, NewsQueryObject } from '@/types'
-import { useQuery } from '@tanstack/react-query'
+import { HiArrowLeft } from 'react-icons/hi'
+import BlogFooter from '@/app/blog/blog-footer'
+import BlogSiteHeader from '@/app/blog/blog-site-header'
+import { blogContainer, blogFocusRing, blogFont } from '@/app/blog/blog-ui'
+import { useBlogPageBackground } from '@/app/blog/use-blog-page-background'
+import type { News } from '@/types'
 import ArticleContent from './components/article-content'
-import ArticleCTA from './components/article-cta'
 import ArticleHero from './components/article-hero'
 import ArticleSidebar from './components/article-sidebar'
 import {
   extractArticleBody,
   extractHeadings,
+  getArticleTitle,
 } from './components/article-utils'
 import ReadingProgress from './components/reading-progress'
 import RelatedArticles from './components/related-articles'
+import ShareButtons from './components/share-buttons'
+import { TableOfContentsMobile } from './components/table-of-contents'
+
+// Header, cover and reading layout share one centred column:
+// 760px article + 48px gap + 280px sidebar.
+const articleColumn = 'mx-auto w-full max-w-[1088px]'
 
 type BlogDetailClientProps = {
-  blogdetail: NewsQueryObject
-  blogid: string
+  post: News
+  relatedPosts: News[]
 }
 
-function getRelatedPosts(blog: News) {
-  return [blog.prevnews, blog.nextnews].filter(Boolean) as News[]
-}
-
+// Like the /blog listing, this page renders without the app-wide Providers:
+// the article arrives fully rendered from the server, so it needs no React
+// Query refetch, and Providers would inject the legacy stylesheet.
 export default function BlogDetailClient({
-  blogdetail,
-  blogid,
+  post,
+  relatedPosts,
 }: BlogDetailClientProps) {
-  return (
-    <Providers>
-      <BlogDetailContent blogdetail={blogdetail} blogid={blogid} />
-    </Providers>
-  )
-}
+  useBlogPageBackground()
 
-function BlogDetailContent({ blogdetail, blogid }: BlogDetailClientProps) {
-  const { data } = useQuery({
-    queryKey: ['news-detail', blogid],
-    queryFn: () => client.news.getbyid(blogid),
-    initialData: blogdetail,
-  })
-
-  const blog = data.result.data
+  const title = getArticleTitle(post)
   const articleHtml = useMemo(
-    () => extractArticleBody(blog.content || ''),
-    [blog.content]
+    () => extractArticleBody(post.content || '', title),
+    [post.content, title]
   )
   const toc = useMemo(() => extractHeadings(articleHtml), [articleHtml])
-  const relatedPosts = useMemo(() => getRelatedPosts(blog), [blog])
 
   return (
-    <Layout>
+    <div
+      className={`${blogFont.className} min-h-screen bg-blog-bg text-blog-text antialiased`}
+    >
+      <a
+        href="#article-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-md focus:bg-blog-text focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-blog-bg"
+      >
+        Skip to article
+      </a>
       <ReadingProgress />
-      <div className="home-light min-h-screen bg-[#05070b] text-white">
-        <div
-          className="pointer-events-none fixed inset-0 opacity-35"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(34,211,238,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(129,140,248,0.12) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-          }}
-        />
-        <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_30%_0%,rgba(34,211,238,0.18),transparent_35%),radial-gradient(circle_at_80%_20%,rgba(167,139,250,0.14),transparent_32%),linear-gradient(180deg,rgba(5,7,11,0),#05070b_76%)]" />
-        <div className="pointer-events-none fixed inset-x-0 top-0 h-32 bg-[repeating-linear-gradient(180deg,rgba(255,255,255,0.04)_0px,rgba(255,255,255,0.04)_1px,transparent_1px,transparent_7px)] opacity-20" />
+      <BlogSiteHeader />
 
-        <div className="relative z-10">
-          <Link
-            href="/blog"
-            className="fixed bottom-6 right-6 z-40 rounded-full border border-cyan-300/30 bg-black/70 px-5 py-3 text-sm font-bold text-cyan-100 shadow-xl shadow-black/30 backdrop-blur transition hover:border-cyan-200 hover:bg-cyan-200 hover:text-slate-950"
-          >
-            Blog
-          </Link>
-
-          <HeaderTwo />
-
-          <main className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-            <ArticleHero post={blog} />
-
-            <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
-              <div className="min-w-0">
-                <ArticleContent html={articleHtml} toc={toc} />
-                <RelatedArticles posts={relatedPosts} />
-                <ArticleCTA />
-              </div>
-              <ArticleSidebar post={blog} toc={toc} />
-            </div>
-          </main>
-
-          <div className="beny_tm_copyright relative z-10 border-t border-white/10 bg-black/30">
-            <div className="container">
-              <Footer />
-            </div>
+      <main className={blogContainer}>
+        <article className="pb-16 sm:pb-20">
+          <div className={articleColumn}>
+            <ArticleHero post={post} />
           </div>
-        </div>
-      </div>
-    </Layout>
+
+          <div
+            className={`${articleColumn} mt-10 grid gap-12 sm:mt-12 lg:grid-cols-[minmax(0,760px)_280px]`}
+          >
+            <div id="article-content" className="min-w-0 scroll-mt-24">
+              <TableOfContentsMobile items={toc} />
+              <ArticleContent html={articleHtml} toc={toc} />
+
+              <div className="mt-12 flex flex-col gap-4 border-t border-blog-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+                <Link
+                  href="/blog"
+                  className={`inline-flex items-center gap-1.5 self-start rounded-sm text-sm font-medium text-blog-muted transition-colors hover:text-blog-text ${blogFocusRing}`}
+                >
+                  <HiArrowLeft aria-hidden className="h-4 w-4" />
+                  Back to articles
+                </Link>
+                <ShareButtons title={title} />
+              </div>
+            </div>
+
+            <ArticleSidebar title={title} toc={toc} />
+          </div>
+        </article>
+
+        {relatedPosts.length > 0 && (
+          <div className={`${articleColumn} pb-16 sm:pb-20`}>
+            <RelatedArticles posts={relatedPosts} />
+          </div>
+        )}
+      </main>
+
+      <BlogFooter />
+    </div>
   )
 }

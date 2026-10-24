@@ -1,9 +1,14 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import client from '@/data/client'
+import { normalizeArticleType } from '@/lib/articles'
+import { getBlogPosts } from '@/lib/blog'
+import type { News } from '@/types'
 import BlogDetailClient from './blog-detail-client'
 
 const siteName = 'Nguyen Vu Hoang Portfolio'
+const siteUrl = 'https://anhben.com'
+const RELATED_POSTS_LIMIT = 3
 
 type PageProps = {
   params: Promise<{
@@ -86,6 +91,81 @@ export async function generateMetadata({
   }
 }
 
+// Same-topic articles first (feed order is newest first), then the
+// previous/next articles, then the latest of any topic.
+async function getRelatedPosts(post: News): Promise<News[]> {
+  const neighbours = [post.prevnews, post.nextnews].filter(
+    (item): item is News => item !== null
+  )
+  let feed: News[] = []
+
+  try {
+    feed = await getBlogPosts()
+  } catch {
+    feed = []
+  }
+
+  const topic = normalizeArticleType(post.type)
+  const candidates = [
+    ...feed.filter((item) => topic && normalizeArticleType(item.type) === topic),
+    ...neighbours,
+    ...feed,
+  ]
+  const seen = new Set([post.id])
+  const related: News[] = []
+
+  for (const item of candidates) {
+    if (related.length === RELATED_POSTS_LIMIT) {
+      break
+    }
+
+    if (item.id && !seen.has(item.id)) {
+      seen.add(item.id)
+      related.push(item)
+    }
+  }
+
+  return related
+}
+
+function createArticleJsonLd(post: News) {
+  const title = post.title || post.name
+  const url = `${siteUrl}/blog-details/${post.id}`
+  const author = post.username || 'Nguyen Vu Hoang'
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        headline: title,
+        description: getDescription(post) || title,
+        ...(post.image ? { image: post.image } : {}),
+        datePublished: post.pubdt || post.createdt || undefined,
+        dateModified: post.createdt || post.pubdt || undefined,
+        articleSection: post.type || undefined,
+        inLanguage: 'vi-VN',
+        url,
+        mainEntityOfPage: url,
+        author: { '@type': 'Person', name: author },
+        publisher: {
+          '@type': 'Person',
+          name: 'Nguyen Vu Hoang',
+          url: siteUrl,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog` },
+          { '@type': 'ListItem', position: 3, name: title, item: url },
+        ],
+      },
+    ],
+  }
+}
+
 export default async function Page({ params }: PageProps) {
   const { blogid } = await params
 
@@ -103,10 +183,17 @@ export default async function Page({ params }: PageProps) {
     notFound()
   }
 
+  const relatedPosts = await getRelatedPosts(blog)
+
   return (
-    <BlogDetailClient
-      blogdetail={blogdetail}
-      blogid={blogid}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(createArticleJsonLd(blog)).replace(/</g, '\\u003c'),
+        }}
+      />
+      <BlogDetailClient post={blog} relatedPosts={relatedPosts} />
+    </>
   )
 }

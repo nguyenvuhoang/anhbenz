@@ -1,15 +1,16 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
+import { HiArrowRight } from 'react-icons/hi'
 import type { News } from '@/types'
+import ArticleCover from './article-cover'
 import {
   formatBlogDate,
   getPostTopic,
   getReadingTime,
+  getTopicLabel,
 } from './use-blog-posts'
 
-const fallbackImage = '/vercel.svg'
 const fallbackSummary =
   'Ghi chú thực chiến về kỹ thuật, sản phẩm và cách xây dựng hệ thống bền vững hơn.'
 
@@ -19,95 +20,97 @@ type BlogCardProps = {
   variant?: 'featured' | 'default'
 }
 
+function ArticleMeta({ post, topic }: { post: News; topic: string }) {
+  const publishedAt = post.pubdt || post.createdt
+
+  return (
+    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-blog-muted">
+      <span className="rounded-md border border-blog-accent/20 bg-blog-accent/[0.08] px-2 py-0.5 font-medium text-blog-accent">
+        {getTopicLabel(topic)}
+      </span>
+      {publishedAt && (
+        <time dateTime={publishedAt}>{formatBlogDate(publishedAt)}</time>
+      )}
+      <span aria-hidden className="h-0.5 w-0.5 rounded-full bg-blog-muted" />
+      <span>{getReadingTime(post)} phút đọc</span>
+    </div>
+  )
+}
+
 export default function BlogCard({
   post,
   priority = false,
   variant = 'default',
 }: BlogCardProps) {
-  const isFeatured = variant === 'featured'
   const title = post.title || post.name
   const summary = post.summary || fallbackSummary
-  const image = post.image || fallbackImage
   const topic = getPostTopic(post)
+  const href = `/blog-details/${post.id}`
 
-  return (
-    <Link
-      href={`/blog-details/${post.id}`}
-      className={`group relative grid min-h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] text-white shadow-2xl shadow-black/20 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/50 hover:bg-white/[0.07] hover:shadow-cyan-950/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
-        isFeatured ? 'lg:grid-cols-[1.05fr_0.95fr]' : ''
-      }`}
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-cyan-300/70 to-transparent opacity-0 transition group-hover:opacity-100" />
-
-      <div
-        className={`relative overflow-hidden bg-slate-950 ${
-          isFeatured ? 'min-h-88 lg:min-h-full' : 'aspect-16/10'
-        }`}
-      >
-        <Image
-          src={image}
+  if (variant === 'featured') {
+    return (
+      <article className="group relative grid overflow-hidden rounded-2xl border border-blog-border bg-blog-surface transition-colors duration-300 hover:border-blog-border-strong has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-blog-accent lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+        <ArticleCover
+          image={post.image}
           alt={title}
-          fill
-          sizes={
-            isFeatured
-              ? '(min-width: 1024px) 50vw, 100vw'
-              : '(min-width: 1280px) 29vw, (min-width: 768px) 45vw, 100vw'
-          }
-          className="object-cover opacity-85 transition duration-500 group-hover:scale-[1.04] group-hover:opacity-100"
+          topic={topic}
           priority={priority}
+          sizes="(min-width: 1200px) 620px, (min-width: 1024px) 54vw, 100vw"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-[#05070b] via-black/10 to-transparent" />
-        <div className="absolute left-4 top-4 rounded-full border border-cyan-300/20 bg-black/65 px-3 py-1 text-xs font-bold uppercase text-cyan-100 backdrop-blur">
-          {topic}
-        </div>
-        {isFeatured && (
-          <div className="absolute bottom-4 left-4 rounded-full border border-violet-300/25 bg-violet-400/15 px-3 py-1 text-xs font-bold text-violet-100 backdrop-blur">
-            Featured intelligence
-          </div>
-        )}
-      </div>
 
-      <article
-        className={`flex min-h-0 flex-col bg-[linear-gradient(135deg,rgba(255,255,255,0.09),rgba(255,255,255,0.025)_45%,rgba(34,211,238,0.09))] ${
-          isFeatured ? 'p-6 sm:p-8 lg:p-10' : 'p-5'
-        }`}
-      >
-        <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase text-slate-300">
-          <time dateTime={post.pubdt || post.createdt}>
-            {formatBlogDate(post.pubdt || post.createdt)}
-          </time>
-          <span className="h-px w-8 bg-cyan-300/60" />
-          <span>{getReadingTime(post)} phút đọc</span>
-        </div>
+        <div className="flex flex-col justify-center gap-4 p-6 sm:p-8">
+          <ArticleMeta post={post} topic={topic} />
 
-        <h2
-          className={`font-bold text-white transition group-hover:text-cyan-100 ${
-            isFeatured
-              ? 'text-2xl leading-tight sm:text-3xl'
-              : 'line-clamp-3 text-lg leading-7'
-          }`}
-        >
-          {title}
-        </h2>
+          <h2 className="text-2xl font-semibold leading-tight tracking-tight text-blog-text sm:text-[1.75rem]">
+            <Link
+              href={href}
+              className="after:absolute after:inset-0 after:content-[''] focus:outline-none"
+            >
+              {title}
+            </Link>
+          </h2>
 
-        <p
-          className={`mt-4 text-sm leading-7 text-slate-300 ${
-            isFeatured ? 'sm:text-base' : 'line-clamp-3'
-          }`}
-        >
-          {summary}
-        </p>
+          <p className="line-clamp-4 text-[15px] leading-7 text-blog-muted">
+            {summary}
+          </p>
 
-        <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm font-bold">
-          <span className="inline-flex items-center gap-2 text-emerald-200">
-            <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_16px_rgba(110,231,183,0.85)]" />
-            Signal ready
-          </span>
-          <span className="text-cyan-200 transition group-hover:translate-x-1">
-            Đọc bài viết →
+          <span
+            aria-hidden
+            className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-blog-text"
+          >
+            Read article
+            <HiArrowRight className="h-4 w-4 text-blog-accent transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>
       </article>
-    </Link>
+    )
+  }
+
+  return (
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-blog-border bg-blog-surface transition-colors duration-300 hover:border-blog-border-strong hover:bg-blog-elevated has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-blog-accent">
+      <ArticleCover
+        image={post.image}
+        alt={title}
+        topic={topic}
+        sizes="(min-width: 1200px) 373px, (min-width: 1024px) 31vw, (min-width: 768px) 46vw, 100vw"
+      />
+
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <ArticleMeta post={post} topic={topic} />
+
+        <h3 className="line-clamp-2 text-lg font-semibold leading-snug tracking-tight text-blog-text">
+          <Link
+            href={href}
+            className="after:absolute after:inset-0 after:content-[''] focus:outline-none"
+          >
+            {title}
+          </Link>
+        </h3>
+
+        <p className="line-clamp-3 text-sm leading-6 text-blog-muted">
+          {summary}
+        </p>
+      </div>
+    </article>
   )
 }

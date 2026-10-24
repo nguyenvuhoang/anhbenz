@@ -6,7 +6,6 @@ import {
   GATEWAY_PATH,
   createArticleSearchRequest,
   mapArticlesToNews,
-  type ArticleSearchResponse,
 } from '@/lib/articles'
 import type { News } from '@/types'
 
@@ -39,7 +38,7 @@ async function fetchBlogPosts() {
     throw new Error(`Failed to load article feed: ${response.status}`)
   }
 
-  const feed = (await response.json()) as ArticleSearchResponse
+  const feed: unknown = await response.json()
   return mapArticlesToNews(feed).map(toBlogListItem)
 }
 
@@ -50,7 +49,13 @@ function toBlogListItem(post: News): News {
   }
 }
 
-export const getBlogPosts = unstable_cache(fetchBlogPosts, ['blog-posts'], {
-  revalidate: BLOG_REVALIDATE_SECONDS,
-  tags: ['blog-posts'],
-})
+// The key is versioned so entries cached from the legacy `/data/allnews`
+// feed are never served for the gateway article feed.
+export const getBlogPosts = unstable_cache(
+  fetchBlogPosts,
+  ['blog-posts', 'gateway-articles-v2'],
+  {
+    revalidate: BLOG_REVALIDATE_SECONDS,
+    tags: ['blog-posts'],
+  }
+)

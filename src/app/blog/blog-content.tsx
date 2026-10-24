@@ -1,9 +1,15 @@
 'use client'
 
+import { HiArrowLeft, HiArrowRight } from 'react-icons/hi'
 import type { News } from '@/types'
 import BlogCard from './blog-card'
 import BlogHero from './blog-hero'
-import { useBlogPosts } from './use-blog-posts'
+import BlogTopics from './blog-topics'
+import { blogContainer, blogFocusRing } from './blog-ui'
+import { ALL_TOPICS, getTopicLabel, useBlogPosts } from './use-blog-posts'
+
+const TOPICS_ANCHOR = 'topics'
+const ARTICLES_ANCHOR = 'articles'
 
 type BlogContentProps = {
   posts: News[]
@@ -18,6 +24,8 @@ function getPaginationPages(currentPage: number, totalPages: number) {
   )
 }
 
+const pageButtonClass = `inline-flex h-9 min-w-9 items-center justify-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-40 ${blogFocusRing}`
+
 export default function BlogContent({ posts }: BlogContentProps) {
   const {
     averageReadingTime,
@@ -29,102 +37,144 @@ export default function BlogContent({ posts }: BlogContentProps) {
     paginatedPosts,
     query,
     resultCount,
+    selectedTopic,
     setCurrentPage,
     setQuery,
+    setSelectedTopic,
+    topicCount,
     topics,
     totalPages,
     totalCount,
   } = useBlogPosts(posts)
   const paginationPages = getPaginationPages(currentPage, totalPages)
+  const showFeatured = Boolean(featuredPost) && currentPage === 1
+
+  function goToPage(page: number) {
+    setCurrentPage(page)
+    document
+      .getElementById(ARTICLES_ANCHOR)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
-    <section className="relative overflow-hidden bg-transparent px-4 pb-20 pt-10 text-white sm:px-6 lg:px-8">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-35"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(34,211,238,0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(129,140,248,0.12) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
-        }}
+    <>
+      <BlogHero
+        averageReadingTime={averageReadingTime}
+        query={query}
+        setQuery={setQuery}
+        topicCount={topicCount}
+        totalCount={totalCount}
       />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_4%,rgba(34,211,238,0.14),transparent_34%),radial-gradient(circle_at_82%_14%,rgba(167,139,250,0.12),transparent_30%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[repeating-linear-gradient(180deg,rgba(255,255,255,0.045)_0px,rgba(255,255,255,0.045)_1px,transparent_1px,transparent_8px)] opacity-20" />
-      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-cyan-300 to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl">
-        <BlogHero
-          averageReadingTime={averageReadingTime}
-          query={query}
-          setQuery={setQuery}
-          topicCount={topics.length - 1}
-          totalCount={totalCount}
-        />
- 
+      <div className={`${blogContainer} pb-16 pt-8 sm:pb-20`}>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <BlogTopics
+            id={TOPICS_ANCHOR}
+            topics={topics}
+            selectedTopic={selectedTopic}
+            onSelect={setSelectedTopic}
+          />
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-y border-white/10 py-5 text-sm text-slate-400">
-          <span>
-            {resultCount} / {totalCount} bài viết phù hợp
-          </span>
-          {hasActiveFilters && (
-            <button
-              type="button"
-              onClick={clearFilters}
-              className="rounded-full border border-amber-200/40 px-4 py-2 font-bold text-amber-100 transition hover:bg-amber-200 hover:text-slate-950"
-            >
-              Reset filter
-            </button>
-          )}
+          <div className="flex shrink-0 items-center gap-3 text-[13px] text-blog-muted">
+            <span role="status" aria-live="polite">
+              <span className="font-medium tabular-nums text-blog-text">
+                {resultCount}
+              </span>{' '}
+              of <span className="tabular-nums">{totalCount}</span> articles
+            </span>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className={`rounded-md px-2 py-1 font-medium text-blog-accent transition-colors hover:bg-blog-surface ${blogFocusRing}`}
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
         </div>
 
-        <section id="articles" className="scroll-mt-28 pt-8 sm:pt-10">
-         
-          {featuredPost ? (
-            <BlogCard post={featuredPost} priority variant="featured" />
-          ) : (
-            <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.04] p-8 text-center text-slate-300">
-              {hasPosts
-                ? 'Không tìm thấy bài viết phù hợp.'
-                : 'Chưa có bài viết để hiển thị.'}
+        <section
+          id={ARTICLES_ANCHOR}
+          aria-label="Articles"
+          className="scroll-mt-24 pt-8"
+        >
+          {!featuredPost ? (
+            <div className="rounded-xl border border-dashed border-blog-border px-6 py-16 text-center">
+              <p className="text-base font-medium text-blog-text">
+                {hasPosts ? 'No matching articles' : 'No articles yet'}
+              </p>
+              <p className="mx-auto mt-2 max-w-sm text-sm text-blog-muted">
+                {hasPosts
+                  ? `Nothing matches${query.trim() ? ` “${query.trim()}”` : ''}${
+                      selectedTopic !== ALL_TOPICS
+                        ? ` in ${getTopicLabel(selectedTopic)}`
+                        : ''
+                    }. Try another keyword or topic.`
+                  : 'New articles will appear here soon.'}
+              </p>
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className={`mt-6 rounded-lg border border-blog-border bg-blog-surface px-4 py-2 text-sm font-medium text-blog-text transition-colors hover:border-blog-border-strong ${blogFocusRing}`}
+                >
+                  Clear filters
+                </button>
+              )}
             </div>
+          ) : (
+            <>
+              {showFeatured && featuredPost && (
+                <div>
+                  <p className="mb-4 text-[13px] font-medium text-blog-muted">
+                    Featured
+                  </p>
+                  <BlogCard post={featuredPost} priority variant="featured" />
+                </div>
+              )}
+
+              {paginatedPosts.length > 0 && (
+                <div className={showFeatured ? 'pt-12 sm:pt-14' : ''}>
+                  <div className="mb-6 flex items-end justify-between gap-4">
+                    <h2 className="text-2xl font-semibold tracking-tight text-blog-text">
+                      Latest articles
+                    </h2>
+                    {totalPages > 1 && (
+                      <span className="text-[13px] tabular-nums text-blog-muted">
+                        Page {currentPage} of {totalPages}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                    {paginatedPosts.map((post) => (
+                      <BlogCard key={post.id} post={post} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </section>
-
-        {paginatedPosts.length > 0 && (
-          <section className="pt-24 sm:pt-28">
-            <div className="mb-10 flex flex-wrap items-end justify-between gap-4 border-t border-white/10 pt-8">
-              <div>
-                <p className="text-sm font-bold uppercase text-violet-200">
-                  Knowledge stream
-                </p>
-                <h2 className="mt-2 text-2xl font-black text-white sm:text-3xl">
-                  Danh sách bài viết
-                </h2>
-              </div>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {paginatedPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
-            </div>
-          </section>
-        )}
 
         {totalPages > 1 && (
           <nav
             aria-label="Blog pagination"
-            className="mt-12 w-full overflow-x-auto"
+            className="mt-12 flex items-center justify-between gap-3 border-t border-blog-border pt-6"
           >
-            <div className="mx-auto flex w-max min-w-0 flex-row items-center justify-center gap-2 rounded-full border border-white/10 bg-black/35 p-2 shadow-2xl shadow-black/20 backdrop-blur-xl">
-              <button
-                type="button"
-                aria-label="Trang trước"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(currentPage - 1)}
-                className="h-10 rounded-full border border-white/10 px-4 text-sm font-bold text-slate-300 transition hover:border-cyan-300/70 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-white/10 disabled:hover:text-slate-300"
-              >
-                Trước
-              </button>
+            <button
+              type="button"
+              aria-label="Previous page"
+              disabled={currentPage === 1}
+              onClick={() => goToPage(currentPage - 1)}
+              className={`${pageButtonClass} border-blog-border text-blog-muted hover:border-blog-border-strong hover:text-blog-text`}
+            >
+              <HiArrowLeft aria-hidden className="h-4 w-4" />
+              <span className="hidden sm:inline">Previous</span>
+            </button>
 
+            <div className="flex items-center gap-1">
               {paginationPages.map((page, index) => {
                 const isActive = page === currentPage
                 const previousPage = paginationPages[index - 1]
@@ -132,19 +182,22 @@ export default function BlogContent({ posts }: BlogContentProps) {
                 return (
                   <span key={page} className="contents">
                     {previousPage && page - previousPage > 1 && (
-                      <span className="grid h-10 min-w-10 place-items-center text-sm font-bold text-slate-500">
-                        ...
+                      <span
+                        aria-hidden
+                        className="grid h-9 w-6 place-items-center text-sm text-blog-muted"
+                      >
+                        …
                       </span>
                     )}
                     <button
                       type="button"
-                      aria-label={`Trang ${page}`}
+                      aria-label={`Page ${page}`}
                       aria-current={isActive ? 'page' : undefined}
-                      onClick={() => setCurrentPage(page)}
-                      className={`h-10 min-w-10 rounded-full border px-3 text-sm font-bold transition ${
+                      onClick={() => goToPage(page)}
+                      className={`${pageButtonClass} tabular-nums ${
                         isActive
-                          ? 'border-cyan-200 bg-linear-to-r from-cyan-200 to-sky-300 text-slate-950'
-                          : 'border-white/10 bg-white/[0.04] text-slate-300 hover:border-cyan-300/70 hover:text-white'
+                          ? 'border-blog-text bg-blog-text text-blog-bg'
+                          : 'border-transparent text-blog-muted hover:border-blog-border hover:text-blog-text'
                       }`}
                     >
                       {page}
@@ -152,20 +205,21 @@ export default function BlogContent({ posts }: BlogContentProps) {
                   </span>
                 )
               })}
-
-              <button
-                type="button"
-                aria-label="Trang sau"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(currentPage + 1)}
-                className="h-10 rounded-full border border-white/10 px-4 text-sm font-bold text-slate-300 transition hover:border-cyan-300/70 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-white/10 disabled:hover:text-slate-300"
-              >
-                Sau
-              </button>
             </div>
+
+            <button
+              type="button"
+              aria-label="Next page"
+              disabled={currentPage === totalPages}
+              onClick={() => goToPage(currentPage + 1)}
+              className={`${pageButtonClass} border-blog-border text-blog-muted hover:border-blog-border-strong hover:text-blog-text`}
+            >
+              <span className="hidden sm:inline">Next</span>
+              <HiArrowRight aria-hidden className="h-4 w-4" />
+            </button>
           </nav>
         )}
       </div>
-    </section>
+    </>
   )
 }

@@ -30,8 +30,8 @@ export interface News {
     content: string
     username: string
     createdt: string
-    nextnews: any
-    prevnews: any
+    nextnews: News | null
+    prevnews: News | null
 }
 
 export interface NewsQueryArrray extends ResultArray<News> { }

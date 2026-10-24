@@ -6,8 +6,6 @@ export type TocItem = {
   text: string
 }
 
-const WORDS_PER_MINUTE = 220
-
 export function stripHtml(value?: string | null) {
   if (!value) {
     return ''
@@ -17,33 +15,6 @@ export function stripHtml(value?: string | null) {
     .replace(/<[^>]*>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
-}
-
-export function formatArticleDate(value?: string) {
-  if (!value) {
-    return 'Mới cập nhật'
-  }
-
-  const date = new Date(value)
-
-  if (Number.isNaN(date.getTime())) {
-    return value
-  }
-
-  return new Intl.DateTimeFormat('vi-VN', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  }).format(date)
-}
-
-export function getReadingTime(post: News) {
-  const text = stripHtml(
-    [post.summary, post.content, post.title, post.name].filter(Boolean).join(' ')
-  )
-  const words = text.split(/\s+/).filter(Boolean).length
-
-  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE))
 }
 
 export function getArticleTitle(post: News) {
@@ -58,14 +29,11 @@ export function getArticleDescription(post: News) {
   )
 }
 
-export function getArticleTopic(post: News) {
-  return post.type || 'Engineering'
-}
-
 function slugify(value: string) {
   return value
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/đ/gi, 'd')
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .trim()
@@ -73,12 +41,32 @@ function slugify(value: string) {
     .slice(0, 72)
 }
 
-export function extractArticleBody(html: string) {
+function normalizeHeadingText(value: string) {
+  return stripHtml(value).toLowerCase()
+}
+
+export function extractArticleBody(html: string, title?: string) {
   const match = html.match(
     /<div id=["']ftwp-postcontent["'][^>]*>([\s\S]*)<\/div>\s*<div class=["']news_share/
   )
+  const body = (match?.[1] || html).trim()
 
-  return match?.[1] || html
+  if (!title) {
+    return body
+  }
+
+  // Many articles open with a heading that repeats the page title; the
+  // article header already renders it as the H1.
+  const leadingHeading = body.match(/^<h([1-2])[^>]*>([\s\S]*?)<\/h\1>/i)
+
+  if (
+    leadingHeading &&
+    normalizeHeadingText(leadingHeading[2]) === normalizeHeadingText(title)
+  ) {
+    return body.slice(leadingHeading[0].length).trim()
+  }
+
+  return body
 }
 
 export function extractHeadings(html: string): TocItem[] {
@@ -119,9 +107,4 @@ export function applyHeadingIds(html: string, toc: TocItem[]) {
 
     return `<h${level}${attrs} id="${item.id}">`
   })
-}
-
-export function getArticleTags(post: News) {
-  const tags = [getArticleTopic(post), 'Next.js', 'Fintech', 'Performance']
-  return Array.from(new Set(tags.filter(Boolean))).slice(0, 5)
 }
