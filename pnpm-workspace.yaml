@@ -1,12 +1,13 @@
 packages:
-  - '.'
+  - "."
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  core-js: set this to true or false
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
+  "@parcel/watcher": true
+  core-js: true
+  sharp: true
+  unrs-resolver: true
 ignoredBuiltDependencies:
-  - '@parcel/watcher'
+  - "@parcel/watcher"
   - core-js
   - sharp
   - unrs-resolver
+pmOnFail: ignore

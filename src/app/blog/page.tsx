@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { getBlogPosts } from '@/lib/blog'
 import type { News } from '@/types'
 import BlogClient from './blog-client'
+import { blogIcons, getBlogShareImage } from './blog-metadata'
 
 export const revalidate = 120
 
@@ -10,8 +11,6 @@ const blogTitle = 'Blog công nghệ, sản phẩm và kỹ thuật phần mềm
 const blogDescription =
   'Các bài viết mới nhất của Nguyen Vu Hoang về Next.js, React, fintech, thiết kế sản phẩm, backend API và kinh nghiệm xây dựng hệ thống thực tế.'
 const blogUrl = '/blog'
-const fallbackOgImage =
-  'https://img.freepik.com/free-vector/blogging-fun-content-creation-online-streaming-video-blog-young-girl-making-selfie-social-network-sharing-feedback-self-promotion-strategy_335657-2386.jpg?w=1200'
 
 export async function generateMetadata(): Promise<Metadata> {
   let latestPost: News | undefined
@@ -23,11 +22,15 @@ export async function generateMetadata(): Promise<Metadata> {
     latestPost = undefined
   }
 
-  const ogImage = latestPost?.image || fallbackOgImage
+  const share = getBlogShareImage(
+    latestPost?.image,
+    latestPost?.title || blogTitle
+  )
 
   return {
     title: blogTitle,
     description: blogDescription,
+    icons: blogIcons,
     alternates: {
       canonical: blogUrl,
     },
@@ -58,20 +61,13 @@ export async function generateMetadata(): Promise<Metadata> {
       title: blogTitle,
       description: blogDescription,
       url: blogUrl,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: latestPost?.title || blogTitle,
-        },
-      ],
+      images: [share.image],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: share.card,
       title: blogTitle,
       description: blogDescription,
-      images: [ogImage],
+      images: [share.image.url],
     },
   }
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { HiOutlineMenu, HiOutlineSearch, HiOutlineX } from 'react-icons/hi'
+import BlogLogo from './blog-logo'
 import { blogContainer, blogFocusRing } from './blog-ui'
 
 const navItems = [
@@ -36,18 +37,7 @@ export default function BlogSiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-blog-border/80 bg-blog-bg/80 backdrop-blur-xl">
       <div className={`${blogContainer} flex h-16 items-center justify-between gap-6`}>
-        <Link
-          href="/"
-          className={`flex min-w-0 items-center gap-2.5 rounded-md ${blogFocusRing}`}
-        >
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-blog-text text-[13px] font-bold tracking-tight text-blog-bg">
-            AB
-          </span>
-          <span className="truncate text-[15px] font-semibold tracking-tight text-blog-text">
-            Anh Ben
-            <span className="font-normal text-blog-muted"> / Insights</span>
-          </span>
-        </Link>
+        <BlogLogo showSection priority />
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => (

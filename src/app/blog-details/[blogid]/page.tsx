@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import client from '@/data/client'
 import { normalizeArticleType } from '@/lib/articles'
-import { getBlogPosts } from '@/lib/blog'
+import { getBlogPostById, getBlogPosts } from '@/lib/blog'
 import type { News } from '@/types'
+import { blogIcons, getBlogShareImage } from '@/app/blog/blog-metadata'
 import BlogDetailClient from './blog-detail-client'
 
 const siteName = 'Nguyen Vu Hoang Portfolio'
@@ -37,15 +37,21 @@ export async function generateMetadata({
   const { blogid } = await params
 
   try {
-    const blogdetail = await client.news.getbyid(blogid)
-    const blog = blogdetail.result.data
+    const blog = await getBlogPostById(blogid)
+
+    if (!blog) {
+      return { icons: blogIcons }
+    }
+
     const title = blog.title || blog.name
     const description = getDescription(blog) || title
     const url = `/blog-details/${blog.id}`
+    const share = getBlogShareImage(blog.image, title)
 
     return {
       title,
       description,
+      icons: blogIcons,
       alternates: {
         canonical: url,
       },
@@ -70,24 +76,17 @@ export async function generateMetadata({
         publishedTime: blog.pubdt || blog.createdt,
         modifiedTime: blog.createdt || blog.pubdt,
         authors: [blog.username || 'Nguyen Vu Hoang'],
-        images: [
-          {
-            url: blog.image,
-            width: 1200,
-            height: 630,
-            alt: title,
-          },
-        ],
+        images: [share.image],
       },
       twitter: {
-        card: 'summary_large_image',
+        card: share.card,
         title,
         description,
-        images: [blog.image],
+        images: [share.image.url],
       },
     }
   } catch {
-    return {}
+    return { icons: blogIcons }
   }
 }
 
@@ -169,15 +168,13 @@ function createArticleJsonLd(post: News) {
 export default async function Page({ params }: PageProps) {
   const { blogid } = await params
 
-  let blogdetail
+  let blog: News | null
 
   try {
-    blogdetail = await client.news.getbyid(blogid)
+    blog = await getBlogPostById(blogid)
   } catch {
     notFound()
   }
-
-  const blog = blogdetail?.result?.data
 
   if (!blog) {
     notFound()

@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import BlogLogo from './blog-logo'
 import { blogContainer, blogFocusRing } from './blog-ui'
 
 const quickLinks = [
@@ -24,17 +25,9 @@ export default function BlogFooter() {
         className={`${blogContainer} grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_auto]`}
       >
         <div className="max-w-xs">
-          <Link
-            href="/"
-            className={`inline-flex items-center gap-2.5 rounded-md ${blogFocusRing}`}
-          >
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-blog-text text-[13px] font-bold tracking-tight text-blog-bg">
-              AB
-            </span>
-            <span className="text-[15px] font-semibold tracking-tight text-blog-text">
-              Anh Ben
-            </span>
-          </Link>
+          <div className="inline-flex">
+            <BlogLogo />
+          </div>
           <p className="mt-4 text-sm leading-6 text-blog-muted">
             Engineering notes on AI, modern web, fintech and digital banking
             systems.
